@@ -1,11 +1,15 @@
 ---
-title: "Ana anasjaramillo.github.io"
+title: "Ana Jaramillo’s Website"
+image: pexels-scottwebb-7079094.jpeg
+toc: false
+about:
+  template: jolla
+  image-shape: rectangle
+  image-width: 30em
 ---
 
-This is a Quarto website.
-
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+I am a current Biology major and Mathematic & Statistics minor at Pomona College. This is my landing page for data science, bioinformatics, and computing projects.
 
 ```{r}
-1 + 1
+
 ```
