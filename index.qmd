@@ -1,6 +1,6 @@
 ---
 title: "Ana Jaramillo’s Website"
-image: pexels-scottwebb-7079094.jpeg
+image: pexels-scottwebb-7079094.jpg
 toc: false
 about:
   template: jolla
@@ -8,7 +8,7 @@ about:
   image-width: 30em
 ---
 
-I am a current Biology major and Mathematic & Statistics minor at Pomona College. This is my landing page for data science, bioinformatics, and computing projects.
+I am a current Biology major and Mathematics & Statistics minor at Pomona College. This is my landing page for data science, bioinformatics, and computing projects.
 
 ```{r}
 
