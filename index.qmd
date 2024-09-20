@@ -6,6 +6,13 @@ about:
   template: jolla
   image-shape: rectangle
   image-width: 30em
+  links: 
+    - text: LinkedIn
+      href: linkedin.com/in/ana-jaramillo-a6867b1a9
+    - text: GitHub
+      href: https://github.com/anasjaramillo
+    - text: Email
+      href: mailto:asja2021@mymail.pomona.edu
 ---
 
 I am a current Biology major and Mathematics & Statistics minor at Pomona College. This is my landing page for data science, bioinformatics, and computing projects.
