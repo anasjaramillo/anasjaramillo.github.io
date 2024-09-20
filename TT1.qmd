@@ -1,9 +1,9 @@
 ---
 title: "TidyTuesday #1"
 description: |
-  Analysis of Super Mario Kart data from TidyTuesday
-author: Jo Hardin
-date: September 18, 2024
+  Numbats in Australia Plots
+author: Ana Jaramillo
+date: September 19, 2024
 format: html
 execute:
   warning: false

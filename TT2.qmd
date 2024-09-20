@@ -1,9 +1,9 @@
 ---
 title: "TidyTuesday #2"
 description: |
-  Analysis of Super Mario Kart data from TidyTuesday
-author: Jo Hardin
-date: September 18, 2024
+  US Egg Production Plots
+author: Ana Jaramillo
+date: September 19, 2024
 format: html
 execute:
   warning: false
