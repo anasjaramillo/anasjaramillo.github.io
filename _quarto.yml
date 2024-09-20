@@ -10,7 +10,7 @@ website:
         text: Home
       - href: about.qmd
         text: About
-      - text: TidyTuesdays
+      - text: Data Viz
         menu: 
           - href: TT1.qmd
             text: "TidyTuesday #1"
