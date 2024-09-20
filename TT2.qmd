@@ -5,6 +5,9 @@ description: |
 author: Jo Hardin
 date: September 18, 2024
 format: html
+execute:
+  warning: false
+  message: false
 ---
 
 Data was sourced from [US Egg Production Data](https://github.com/rfordatascience/tidytuesday/blob/master/data/2023/2023-04-11/readme.md) by jonthegeek on Github
