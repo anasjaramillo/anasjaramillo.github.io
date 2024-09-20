@@ -1,3 +1,30 @@
 ---
 title: "TidyTuesday #1"
+description: |
+  Analysis of Super Mario Kart data from TidyTuesday
+author: Jo Hardin
+date: September 18, 2024
+format: html
 ---
+
+Data was sourced from [Numbats in Australia](https://github.com/rfordatascience/tidytuesday/blob/master/data/2023/2023-03-07/readme.md) by jonthegeek on Github
+
+```{r}
+# Packages
+library(tidyverse)
+library(ggplot2)
+
+# Data
+numbats <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2023/2023-03-07/numbats.csv')
+
+# Filtering Data
+numbats |>
+  select(decimalLatitude, decimalLongitude, scientificName) |>
+  filter(scientificName == "Myrmecobius fasciatus")
+
+# Making Plots
+ggplot(data = numbats, aes(x = decimalLatitude, y = decimalLongitude)) +
+  geom_point() +
+  labs(title = "Coordinates of 787 Numbats (Myrmecobius fasciatus)", x = "Coordinate Latitude", y = "Coordinate Longitude")
+  
+```

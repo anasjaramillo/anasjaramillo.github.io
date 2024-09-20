@@ -1,5 +1,39 @@
 ---
-title: "TidyTuesdays"
+title: "TidyTuesday #2"
+description: |
+  Analysis of Super Mario Kart data from TidyTuesday
+author: Jo Hardin
+date: September 18, 2024
+format: html
 ---
 
-something in here
+Data was sourced from [US Egg Production Data](https://github.com/rfordatascience/tidytuesday/blob/master/data/2023/2023-04-11/readme.md) by jonthegeek on Github
+
+```{r}
+# Packages
+library(tidyverse)
+library(ggplot2)
+
+# Data
+eggproduction  <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2023/2023-04-11/egg-production.csv')
+
+
+# Filter by year
+eggproduction |>
+  select(observed_month, n_hens, n_eggs) |>
+  filter(str_starts(as.character(observed_month), "2020"))
+
+# Plotting
+ggplot(eggproduction, aes(x = observed_month, y = n_eggs/n_hens)) +
+  geom_point() +
+  labs(
+    title = "Number of eggs laid per hen in 2020",
+    subtitle = "*Assuming every hen laid the same number of eggs",
+    x = "Date",
+    y = "Number of Eggs"
+  )
+
+
+
+```
+

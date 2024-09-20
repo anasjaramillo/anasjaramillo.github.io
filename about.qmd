@@ -2,8 +2,4 @@
 title: "About"
 ---
 
-About this site
-
-```{r}
-1 + 1
-```
+I guess theres nothing to learn about me at this time.
