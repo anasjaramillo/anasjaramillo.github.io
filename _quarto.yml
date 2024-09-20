@@ -8,9 +8,14 @@ website:
     left:
       - href: index.qmd
         text: Home
-      - about.qmd
-      - TidyTuesdays.qmd
-
+      - href: about.qmd
+        text: About
+      - text: TidyTuesdays
+        menu: 
+          - href: TT1.qmd
+            text: "TidyTuesday #1"
+          - href: TT2.qmd
+            text: "TidyTuesday #2"
 format:
   html:
     theme: 
