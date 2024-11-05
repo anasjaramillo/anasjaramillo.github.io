@@ -1,6 +1,6 @@
 ---
 title: "Ana Jaramillo’s Website"
-image: pexels-scottwebb-7079094.jpg
+image: IMG_7140.jpg
 toc: false
 about:
   template: jolla
