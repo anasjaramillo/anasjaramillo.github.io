@@ -8,7 +8,7 @@ about:
   image-width: 30em
   links: 
     - text: LinkedIn
-      href: linkedin.com/in/ana-jaramillo-a6867b1a9
+      href: https://linkedin.com/in/ana-jaramillo-a6867b1a9
     - text: GitHub
       href: https://github.com/anasjaramillo
     - text: Email
