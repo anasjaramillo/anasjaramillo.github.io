@@ -43,7 +43,8 @@ Lets try to rearrange the MRT distance data randomly to see if we get the same r
 real_estate |>
   ggplot(aes(x = distance_MRT, y = house_price_unit)) +
   geom_point() +
-  labs(x = "Distance from MRT (meters)", y = "House Price of Unit Area", y = "House Price of Unit Area", title = "MRT Distances to House Price per Unit Area" ) +
+  labs(x = "Distance from MRT (meters)", y = "House Price of Unit Area", y = "House Price of Unit Area",
+       title = "MRT Distances to House Price per Unit Area" ) +
   geom_smooth(method = "lm")
 
 
@@ -53,7 +54,8 @@ real_estate |>
     mutate(random_MRT = sample(distance_MRT)) |>
     ggplot(aes(x = random_MRT, y = house_price_unit)) +
     geom_point() +
-  labs(x = "Distance from MRT (meters)", y = "House Price of Unit Area", title = "Randomly Sampled MRT Distances to House Price per Unit Area") +
+  labs(x = "Distance from MRT (meters)", y = "House Price of Unit Area",
+       title = "Randomly Sampled MRT Distances to House Price per Unit Area") +
   geom_smooth(method = "lm")
   
 ```
