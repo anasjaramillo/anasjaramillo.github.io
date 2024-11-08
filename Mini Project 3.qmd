@@ -108,14 +108,7 @@ This is compared to our very negative slope of the original dataset:
  -0.007262052
 ```
 
-But just to be sure...lets calculate a p-value.
-
-```{r}
-#p-value?
-set.seed(47)
-```
-
-In all, it seems that proximity to MRT stations do play a significant role in Taiwan's house valuation. The original dataset's negative relationship is shown to be significantly different from the 1000 iterations of permutations tested with randomized data!
+In all, it seems that proximity to MRT stations may play a significant role in Taiwan's house valuation. The original dataset's negative relationship is shown to be significantly different from the 1000 iterations of permutations tested with randomized data.
 
 Citation:
 
