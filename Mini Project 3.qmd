@@ -43,7 +43,8 @@ Lets try to rearrange the MRT distance data randomly to see if we get the same r
 real_estate |>
   ggplot(aes(x = distance_MRT, y = house_price_unit)) +
   geom_point() +
-  labs(x = "Distance from MRT (meters)", y = "House Price of Unit Area", y = "House Price of Unit Area",
+  labs(x = "Distance from MRT (meters)", y = "House Price of Unit Area",
+       y = "House Price of Unit Area",
        title = "MRT Distances to House Price per Unit Area" ) +
   geom_smooth(method = "lm")
 
@@ -96,6 +97,7 @@ average_sample_slope <- mean(null_slopes)
 
 average_sample_slope
 
+
 ```
 
 So over 1000 permutations, we have an average reshuffled slope of:
@@ -110,7 +112,37 @@ This is compared to our very negative slope of the original dataset:
  -0.007262052
 ```
 
-In all, it seems that proximity to MRT stations may play a significant role in Taiwan's house valuation. The original dataset's negative relationship is shown to be significantly different from the 1000 iterations of permutations tested with randomized data.
+Lets create a histogram of the null statistics and see if our observed values fall within the histogram:
+
+```{r}
+comparison_slopes <- tibble(null_slopes, observed_slope)
+
+set.seed(47)
+perm_stats <-
+  map(1:1000, null_slopes, data = comparison_slopes) |>
+  list_rbind()
+
+perm_stats |>
+  ggplot(aes(x = null_slopes)) +
+  geom_histogram() +
+  geom_vline(aes(xintercept = observed_slope), color = "red") +
+               labs(title = "Histogram of 1000 Slope Permutations", 
+                    subtitle = "red line = observed slope (from original data)", x = "Permuted Null Slopes", y = "Count")
+```
+
+Well, that is interesting...it seems our observed slope (red line) is nowhere near the slopes of calculated in the 1000 permutation. Thats to say, there is likely no way that our observed data would happen by chance--even if we were to run this simulation 1000 times.
+
+Lets also conduct a t-test, just because!
+
+```{r}
+library(broom)
+t_test <- lm(house_price_unit ~ distance_MRT, data = real_estate) |>
+  tidy()
+
+t_test$p.value
+```
+
+Since our p-values (1.856440 x 10\^-231 and 4.639825 x 10\^-56, essentially, 0) is much smaller than 0.05, **we can confidently reject the null hypothesis**--suggesting there is a statistically significant relationship between Taiwanese house prices per unit area and the home's distance from the MRT. In all, it seems that proximity to MRT stations plays a significant role in Taiwan's house valuation. The original data set's negative relationship is shown to be significantly different from the 1000 iterations of permutations tested with randomized data.
 
 Citation:
 
