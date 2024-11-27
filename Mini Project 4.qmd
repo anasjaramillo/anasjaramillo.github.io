@@ -1,0 +1,112 @@
+---
+title: "Mini Project 4"
+description: |
+ Recreating Voss (2020) Figure
+author: Ana Jaramillo
+date: September 28, 2024
+format: html
+execute:
+  warning: false
+  message: false
+---
+
+```{r}
+library(RMariaDB)
+library(tidyverse)
+con_wai <- dbConnect(
+  MariaDB(), host = "scidb.smith.edu",
+  user = "waiuser", password = "smith_waiDB", 
+  dbname = "wai"
+)
+Measurements <- tbl(con_wai, "Measurements")
+PI_Info <- tbl(con_wai, "PI_Info")
+Subjects <- tbl(con_wai, "Subjects")
+```
+
+```{sql}
+#| connection: con_wai
+SHOW TABLES;
+```
+
+```{sql}
+#| connection: con_wai
+DESCRIBE Subjects;
+```
+
+```{sql}
+#| connection: con_wai
+SELECT *
+FROM Measurements
+LIMIT 0, 5;
+```
+
+```{sql}
+#| connection: con_wai
+DESCRIBE PI_Info;
+```
+
+```{sql}
+#| connection: con_wai
+SELECT *
+FROM PI_Info
+LIMIT 0, 5;
+
+```
+
+```{sql}
+#| connection: con_wai
+DESCRIBE Subjects;
+```
+
+```{sql}
+#| connection: con_wai
+SELECT *
+FROM Subjects
+LIMIT 0, 5;
+```
+
+```{sql}
+#| connection: con_wai
+SELECT 
+    pi.Identifier,
+    pi.AuthorsShortList,
+    pi.Year,
+    m.Instrument,
+    COUNT(DISTINCT CONCAT(m.SubjectNumber, m.Ear)) AS Unique_Ears,
+    m.Frequency,
+    AVG(m.Absorbance) AS Mean_Absorbance
+FROM Measurements AS m
+JOIN PI_Info AS pi ON m.Identifier = pi.Identifier
+-- Note the change below: ensure the join is valid
+JOIN Subjects AS s ON m.SubjectNumber = s.SubjectNumber
+WHERE 
+    pi.Identifier IN ('Abur2014', 'Feeney2017', 'Groon2015', 'Lewis2015', 'Liu2008',
+                      'Rosowski2012', 'Shahnaz2006', 'Shaver2013', 'Sun2016', 
+                      'Voss1994', 'Voss2010', 'Werner2010') 
+    AND m.Frequency BETWEEN 200 AND 8000
+GROUP BY 
+    pi.Identifier, pi.AuthorsShortList, pi.Year, m.Instrument, m.Frequency
+ORDER BY 
+    pi.Identifier, m.Frequency;
+
+
+```
+
+```{sql}
+#| connection: con_wai
+SELECT 
+    Identifier, 
+    Instrument, 
+    COUNT(DISTINCT CONCAT(SubjectNumber, Ear)) AS Unique_Ears
+FROM 
+    Measurements
+GROUP BY 
+    Identifier, 
+    Instrument
+LIMIT 10;
+```
+
+```{}
+```
+
+Identifiers: Abur_2014, Feeney_2017, Groon_2015, Lewis_2015, Liu_2008, Rosowski_2012, Shahnaz_2006, Shaver_2013, Sun_2016, Voss_1994, Voss_2010, Werner_2010
