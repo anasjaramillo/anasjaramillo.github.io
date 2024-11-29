@@ -1,14 +1,22 @@
 ---
 title: "Mini Project 4"
 description: |
- Recreating Voss (2020) Figure
+ Voss (2020) Figure and SQL WAI Data
 author: Ana Jaramillo
-date: September 28, 2024
+date: November 28, 2024
 format: html
 execute:
   warning: false
   message: false
 ---
+
+Data was sourced from the \[Wideband Acoustic Immittance (WAI) Database\](<https://www.science.smith.edu/wai-database/>) hosted by Smith College
+
+In this project, I plan to query the WAI Database to create two sub-queries: one that will allow me to reproduce *Figure 1* of the *Voss (2020)* publication (see image below) and one to allow me to compare mean absorbency of sound among subjects of different races in one of the studies included in the WAI Database. I start by understanding the tables within the dataset and the variables of each relevant table, which is largely done by the DESCRIBE function. I continue by joining datasets with the information relevant to the figures–utilizing primary keys that connect the datasets, such as Identifier and SubjectNumber.
+
+**Figure 1 Voss (2020)**
+
+![](Voss 2020.jpg)
 
 ```{r}
 library(DBI)
@@ -63,48 +71,117 @@ DESCRIBE Subjects;
 #| connection: con_wai
 SELECT *
 FROM Subjects
+WHERE Identifier = 'Lewis_2015'
 LIMIT 0, 5;
 ```
 
+**PART 1: Recreating Voss (2020) Figure 1**
+
+In this part of my work, I recreated the Voss (2020) Figure 1 as closely as possible by utilizing ggplot2. I began by selecting my relevant variables, and joining via primary keys. I then isolated the data for the studies included in the plot, the desired frequencies, and grouped by the relevant variables. NOTE: Some deviation from the original figure results from updates in the dataset since the figure publication in 2020--4 years of additional data is included.
+
 ```{sql}
 #| connection: con_wai
+#| output.var: "freq_data"
 SELECT 
-    pi.Identifier,
-    pi.AuthorsShortList,
-    pi.Year,
-    m.Instrument,
-    COUNT(DISTINCT CONCAT(m.SubjectNumber, m.Ear)) AS Unique_Ears,
-    m.Frequency,
-    AVG(m.Absorbance) AS Mean_Absorbance
-FROM Measurements AS m
-JOIN PI_Info AS pi ON m.Identifier = pi.Identifier
--- Note the change below: ensure the join is valid
+p.Identifier,
+p.AuthorsShortList,
+p.Year,
+m.Instrument,
+COUNT(DISTINCT CONCAT(m.SubjectNumber, m.Ear)) AS Unique_Ears,
+m.Frequency, 
+AVG(m.Absorbance) AS Mean_Absorbance
+FROM Measurements AS m 
+JOIN PI_Info AS p
+ON m.Identifier = p.Identifier
+JOIN Subjects AS s ON m.SubjectNumber = s.SubjectNumber
+WHERE p.Identifier IN ('Abur_2014', 'Feeney_2017', 'Groon_2015',
+'Lewis_2015', 'Liu_2008', 'Rosowski_2012', 'Shahnaz_2006', 
+'Shaver_2013', 'Sun_2016', 'Voss_1994', 'Voss_2010', 
+'Werner_2010')
+AND m.Frequency BETWEEN 200 AND 8000
+GROUP BY 
+p.Identifier,
+p.AuthorsShortList,
+p.Year, m.Instrument,
+m.Frequency
+HAVING
+Unique_Ears > 0
+ORDER BY
+p.Identifier, m.Frequency;
+```
+
+```{r}
+freq_data |>
+  mutate(Label = paste(AuthorsShortList, "(", Year, ") N=", Unique_Ears, ";", Instrument)) |>
+  group_by(Label) |>
+  arrange(desc(Label)) |>
+  ggplot(aes(x = Frequency, y = Mean_Absorbance, color = Label )) +
+  geom_smooth(se = FALSE, method = "loess", span = 0.3) +
+  scale_x_continuous(limits = c(200,8000), breaks = seq(200, 8000, by = 1000)) +
+  labs(
+    title = "Mean absorbance from each publication in WAI database",
+    x = "Frequency (Hz)",
+    y = "Mean Absorbance", 
+    color = "Study Details"
+  ) + 
+  theme_minimal()  +
+  scale_color_manual(values = c(
+    "purple", "deepskyblue", "aquamarine", "darkolivegreen2", "darkseagreen1", "yellow", 
+    "khaki2", "lemonchiffon2", "goldenrod1", "orange", "sienna2", "red", "tomato4"))
+```
+
+**PART 2: Mean Absorbance of Lewis 2015 Study by Subject Race**
+
+In this part, I chose to visualize the data of the Lewis 2015 study whose data was collected within the WAI Database. In this, I grouped the data by subject race in visualization, maintaining the previous frequency threshold. I started by creating a SQL subquery for the data I desired, and visualized the mean absorbency to frequency of subjects amongst different racial groups
+
+```{sql}
+#| connection: con_wai
+#| output.var: "race_data"
+SELECT 
+s.Race, 
+p.Identifier,
+COUNT(DISTINCT CONCAT(m.SubjectNumber, m.Ear)) AS Unique_Ears,
+m.Frequency, 
+AVG(m.Absorbance) AS Mean_Absorbance
+FROM Measurements AS m 
+JOIN PI_Info AS p
+ON m.Identifier = p.Identifier
 JOIN Subjects AS s ON m.SubjectNumber = s.SubjectNumber
 WHERE 
-    pi.Identifier IN ('Abur2014', 'Feeney2017', 'Groon2015', 'Lewis2015', 'Liu2008',
-                      'Rosowski2012', 'Shahnaz2006', 'Shaver2013', 'Sun2016', 
-                      'Voss1994', 'Voss2010', 'Werner2010') 
-    AND m.Frequency BETWEEN 200 AND 8000
-GROUP BY 
-    pi.Identifier, pi.AuthorsShortList, pi.Year, m.Instrument, m.Frequency
-ORDER BY 
-    pi.Identifier, m.Frequency;
-
-
+p.Identifier = ('Lewis_2015')
+AND m.Frequency BETWEEN 200 AND 8000
+GROUP BY s.Race, p.Identifier, m.Frequency
+HAVING
+Unique_Ears > 0;
 ```
 
-```{sql}
-#| connection: con_wai
-SELECT 
-    Identifier, 
-    Instrument, 
-    COUNT(DISTINCT CONCAT(SubjectNumber, Ear)) AS Unique_Ears
-FROM 
-    Measurements
-GROUP BY 
-    Identifier, 
-    Instrument
-LIMIT 10;
+```{r}
+race_data <- race_data |> 
+  mutate(Race = str_trim(Race),   
+         Race = str_to_title(Race)) 
+
+race_data |> 
+  group_by(Race) |>
+  ggplot(aes(x = Frequency, y = Mean_Absorbance, color = Race)) +
+  geom_smooth(se = FALSE, method = "loess", span = 0.3) +
+  scale_x_continuous(limits = c(200, 8000), breaks = seq(200, 8000, by = 1000)) +
+  labs(
+    title = "Mean absorbance by Subject Race in Lewis 2015 Data",
+    x = "Frequency (Hz)",
+    y = "Mean Absorbance", 
+    color = "Test Subject Race"
+  ) + 
+  theme_minimal()
+
+  
 ```
 
-Identifiers: Abur_2014, Feeney_2017, Groon_2015, Lewis_2015, Liu_2008, Rosowski_2012, Shahnaz_2006, Shaver_2013, Sun_2016, Voss_1994, Voss_2010, Werner_2010
+To conclude, I created subqueries of the WAI Database to best manipulate the data into visualizations using ggplot2. Although the data originated in SQL form, SQL was used to create subqueries that translate into a dataframe output in R. This was then used to create graphs via ggplot2 and tidyverse functions. In the end, a graph mimicking the output of Voss (2020) Figure 1 (with slight, noted deviations) and a graph to visualize another aspect of a specific study, Lewis 2015, differences in mean absorbency at different frequencies among subject race.
+
+Citation:
+
+Voss, Susan E., et al. “Wideband Acoustic Immittance Dataset.” *Api.Openalex.Org*, Smith College, api.openalex.org/works/doi:10.3837/tiis.2022.12.001. Accessed 28 Nov. 2024.
+
+doi.org/10.35482/egr.001.2022
+
+Voss, Susan E. “An Online Wideband Acoustic Immittance (WAI) Database and Corresponding Website.” *Ear and Hearing*, U.S. National Library of Medicine, 1 Nov. 2020, pmc.ncbi.nlm.nih.gov/articles/PMC7093226/.
