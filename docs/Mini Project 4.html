@@ -233,806 +233,58 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>PI_Info <span class="ot">&lt;-</span> <span class="fu">tbl</span>(con_wai, <span class="st">"PI_Info"</span>)</span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>Subjects <span class="ot">&lt;-</span> <span class="fu">tbl</span>(con_wai, <span class="st">"Subjects"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>SHOW <span class="kw">TABLES</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<caption>7 records</caption>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Tables_in_wai</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Codebook</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Measurements</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Measurements_pre2020</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">PI_Info</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">PI_Info_OLD</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Subjects</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Subjects_pre2020</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>DESCRIBE Subjects;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<caption>Displaying records 1 - 10</caption>
-<colgroup>
-<col style="width: 46%">
-<col style="width: 18%">
-<col style="width: 7%">
-<col style="width: 6%">
-<col style="width: 12%">
-<col style="width: 9%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Field</th>
-<th style="text-align: left;">Type</th>
-<th style="text-align: left;">Null</th>
-<th style="text-align: left;">Key</th>
-<th style="text-align: left;">Default</th>
-<th style="text-align: left;">Extra</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Identifier</td>
-<td style="text-align: left;">varchar(50)</td>
-<td style="text-align: left;">NO</td>
-<td style="text-align: left;">PRI</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">SubjectNumber</td>
-<td style="text-align: left;">int</td>
-<td style="text-align: left;">NO</td>
-<td style="text-align: left;">PRI</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">SessionTotal</td>
-<td style="text-align: left;">int</td>
-<td style="text-align: left;">NO</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">AgeFirstMeasurement</td>
-<td style="text-align: left;">float</td>
-<td style="text-align: left;">YES</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">AgeCategoryFirstMeasurement</td>
-<td style="text-align: left;">varchar(50)</td>
-<td style="text-align: left;">YES</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Sex</td>
-<td style="text-align: left;">varchar(50)</td>
-<td style="text-align: left;">NO</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Race</td>
-<td style="text-align: left;">varchar(50)</td>
-<td style="text-align: left;">NO</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Ethnicity</td>
-<td style="text-align: left;">varchar(50)</td>
-<td style="text-align: left;">NO</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">LeftEarStatusFirstMeasurement</td>
-<td style="text-align: left;">varchar(50)</td>
-<td style="text-align: left;">NO</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">RightEarStatusFirstMeasurement</td>
-<td style="text-align: left;">varchar(50)</td>
-<td style="text-align: left;">NO</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;"></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> Measurements</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="kw">LIMIT</span> <span class="dv">0</span>, <span class="dv">5</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<caption>5 records</caption>
-<colgroup>
-<col style="width: 6%">
-<col style="width: 8%">
-<col style="width: 5%">
-<col style="width: 3%">
-<col style="width: 6%">
-<col style="width: 2%">
-<col style="width: 7%">
-<col style="width: 6%">
-<col style="width: 2%">
-<col style="width: 6%">
-<col style="width: 8%">
-<col style="width: 9%">
-<col style="width: 6%">
-<col style="width: 6%">
-<col style="width: 6%">
-<col style="width: 6%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Identifier</th>
-<th style="text-align: right;">SubjectNumber</th>
-<th style="text-align: right;">Session</th>
-<th style="text-align: left;">Ear</th>
-<th style="text-align: left;">Instrument</th>
-<th style="text-align: right;">Age</th>
-<th style="text-align: left;">AgeCategory</th>
-<th style="text-align: left;">EarStatus</th>
-<th style="text-align: right;">TPP</th>
-<th style="text-align: right;">AreaCanal</th>
-<th style="text-align: right;">PressureCanal</th>
-<th style="text-align: left;">SweepDirection</th>
-<th style="text-align: right;">Frequency</th>
-<th style="text-align: right;">Absorbance</th>
-<th style="text-align: right;">Zmag</th>
-<th style="text-align: right;">Zang</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Abur_2014</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: left;">Left</td>
-<td style="text-align: left;">HearID</td>
-<td style="text-align: right;">20</td>
-<td style="text-align: left;">Adult</td>
-<td style="text-align: left;">Normal</td>
-<td style="text-align: right;">-5</td>
-<td style="text-align: right;">4.42e-05</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: left;">Ambient</td>
-<td style="text-align: right;">210.938</td>
-<td style="text-align: right;">0.0333379</td>
-<td style="text-align: right;">113780000</td>
-<td style="text-align: right;">-0.233504</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Abur_2014</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: left;">Left</td>
-<td style="text-align: left;">HearID</td>
-<td style="text-align: right;">20</td>
-<td style="text-align: left;">Adult</td>
-<td style="text-align: left;">Normal</td>
-<td style="text-align: right;">-5</td>
-<td style="text-align: right;">4.42e-05</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: left;">Ambient</td>
-<td style="text-align: right;">234.375</td>
-<td style="text-align: right;">0.0315705</td>
-<td style="text-align: right;">103585000</td>
-<td style="text-align: right;">-0.235778</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Abur_2014</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: left;">Left</td>
-<td style="text-align: left;">HearID</td>
-<td style="text-align: right;">20</td>
-<td style="text-align: left;">Adult</td>
-<td style="text-align: left;">Normal</td>
-<td style="text-align: right;">-5</td>
-<td style="text-align: right;">4.42e-05</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: left;">Ambient</td>
-<td style="text-align: right;">257.812</td>
-<td style="text-align: right;">0.0405751</td>
-<td style="text-align: right;">92951696</td>
-<td style="text-align: right;">-0.233482</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Abur_2014</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: left;">Left</td>
-<td style="text-align: left;">HearID</td>
-<td style="text-align: right;">20</td>
-<td style="text-align: left;">Adult</td>
-<td style="text-align: left;">Normal</td>
-<td style="text-align: right;">-5</td>
-<td style="text-align: right;">4.42e-05</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: left;">Ambient</td>
-<td style="text-align: right;">281.250</td>
-<td style="text-align: right;">0.0438399</td>
-<td style="text-align: right;">86058000</td>
-<td style="text-align: right;">-0.233421</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Abur_2014</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: left;">Left</td>
-<td style="text-align: left;">HearID</td>
-<td style="text-align: right;">20</td>
-<td style="text-align: left;">Adult</td>
-<td style="text-align: left;">Normal</td>
-<td style="text-align: right;">-5</td>
-<td style="text-align: right;">4.42e-05</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: left;">Ambient</td>
-<td style="text-align: right;">304.688</td>
-<td style="text-align: right;">0.0486400</td>
-<td style="text-align: right;">79492800</td>
-<td style="text-align: right;">-0.232931</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>DESCRIBE PI_Info;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<caption>Displaying records 1 - 10</caption>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Field</th>
-<th style="text-align: left;">Type</th>
-<th style="text-align: left;">Null</th>
-<th style="text-align: left;">Key</th>
-<th style="text-align: left;">Default</th>
-<th style="text-align: left;">Extra</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Identifier</td>
-<td style="text-align: left;">varchar(50)</td>
-<td style="text-align: left;">NO</td>
-<td style="text-align: left;">PRI</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Year</td>
-<td style="text-align: left;">int</td>
-<td style="text-align: left;">NO</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Authors</td>
-<td style="text-align: left;">text</td>
-<td style="text-align: left;">NO</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">AuthorsShortList</td>
-<td style="text-align: left;">text</td>
-<td style="text-align: left;">NO</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Title</td>
-<td style="text-align: left;">text</td>
-<td style="text-align: left;">NO</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Journal</td>
-<td style="text-align: left;">text</td>
-<td style="text-align: left;">NO</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">URL</td>
-<td style="text-align: left;">text</td>
-<td style="text-align: left;">NO</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Abstract</td>
-<td style="text-align: left;">text</td>
-<td style="text-align: left;">NO</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">DataSubmitterName</td>
-<td style="text-align: left;">text</td>
-<td style="text-align: left;">NO</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">DataSubmitterEmail</td>
-<td style="text-align: left;">text</td>
-<td style="text-align: left;">NO</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;"></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>::: {.cell}</p>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> PI_Info</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="kw">LIMIT</span> <span class="dv">0</span>, <span class="dv">5</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="knitsql-table">
-
-
-<table class="caption-top table">
-<caption>5 records</caption>
-<colgroup>
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 2%">
-<col style="width: 0%">
-<col style="width: 4%">
-<col style="width: 0%">
-<col style="width: 1%">
-<col style="width: 83%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 4%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Identifier</th>
-<th style="text-align: right;">Year</th>
-<th style="text-align: left;">Authors</th>
-<th style="text-align: left;">AuthorsShortList</th>
-<th style="text-align: left;">Title</th>
-<th style="text-align: left;">Journal</th>
-<th style="text-align: left;">URL</th>
-<th style="text-align: left;">Abstract</th>
-<th style="text-align: left;">DataSubmitterName</th>
-<th style="text-align: left;">DataSubmitterEmail</th>
-<th style="text-align: left;">DateSubmitted</th>
-<th style="text-align: left;">PI_Notes</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Abur_2014</td>
-<td style="text-align: right;">2014</td>
-<td style="text-align: left;">Defne Abur, Nicholas J. Horton, and Susan E. Voss</td>
-<td style="text-align: left;">Abur et al.</td>
-<td style="text-align: left;">Instrasubject variability in power reflectance</td>
-<td style="text-align: left;">J Am Acad Audiol</td>
-<td style="text-align: left;">https://www.ncbi.nlm.nih.gov/pubmed/25257718</td>
-<td style="text-align: left;">“</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-</tbody>
-</table>
-<p>
-<strong> Purpose: </strong> This study investigates test-retest features of power reflectance, including comparisons of intrasubject versus intersubject variability and how ear-canal measurement location affects measurements.
-</p>
-<p>
-<strong> Research design: </strong> Repeated measurements of power reflectance were made at about weekly intervals. The subjects returned for four to eight sessions. Measurements were made at three ear-canal locations: a deep insertion depth (with a foam plug flush at the entrance to the ear canal) and both 3 and 6 mm more lateral to this deep insertion.
-</p>
-<p>
-<strong> Study sample:</strong> Repeated measurements on seven subjects are reported. All subjects were female, between 19 and 22 yr old, and enrolled at an undergraduate women’s college.
-</p>
-<p>
-<strong> Data collection and analysis: </strong> Measurements on both the right and left ears were made at three ear-canal locations during each of four to eight measurement sessions. Random-effects regression models were used for the analysis to account for repeated measures within subjects. The mean power reflectance for each position over all sessions was calculated for each subject.
-</p>
-<p>
-<strong> Results: </strong> The comparison of power reflectance from the left and right ears of an individual subject varied greatly over the seven subjects; the difference between the power reflectance measured on the left and that measured on the right was compared at 248 frequencies, and depending on the subject, the percentage of tested frequencies for which the left and right ears differed significantly ranged from 10% to 93% (some with left values greater than right values and others with the opposite pattern). Although the individual subjects showed left-right differences, the overall population generally did not show significant differences between the left and right ears. The mean power reflectance for each measurement position over all sessions depended on the location of the probe in the ear for frequencies of less than 1000 Hz. The standard deviation between subjects’ mean power reflectance after controlling for ear (left or right) was found to be greater than the standard deviation within the individual subject’s mean power reflectance. The intrasubject standard deviation in power reflectance was smallest at the deepest insertion depths.
-</p>
-<p>
-<strong> Conclusions: </strong> All subjects had differences in power reflectance between their left and right ears at some frequencies; the percentage of frequencies at which differences occurred varied greatly across subjects. The intrasubject standard deviations were smallest for the deepest probe insertion depths, suggesting clinical measurements should be made with as deep an insertion as practically possible to minimize variability. This deep insertion will reduce both acoustic leaks and the effect of low-frequency ear-canal losses. The within-subject standard deviations were about half the magnitude of the overall standard deviations, quantifying the extent of intrasubject versus intersubject variability.
-</p>
-” |Susan Voss |svoss@smith.edu |24-Aug-2016 |Measurements made on 7 subjects across multiple sessions and 3 probe locations for each subject. Database includes measurements at only the deepest insertion depth (Position 1) and Channel B only. | |Aithal_2013 | 2013|Sreedevi Aithal, Joseph Kei, Carlie Driscoll, and Asaduzzaman Khan |Aithal et al.&nbsp;|Normative wideband reflectance measures in healthy neonates |Int. J. Pediatr. Otorhinolaryngol. |https://pubmed.ncbi.nlm.nih.gov/23047065/ |
-<p>
-<strong> Objective: </strong> Presently, normative wideband reflectance data are available for neonates who have passed a distortion product otoacoustic emission test. However, passing the distortion product otoacoustic emission test alone does not ensure normal middle ear function. The objective of this study was to establish normative wideband reflectance data in healthy neonates with normal middle ear function, as justified by passing a battery of tests.
-</p>
-<p>
-<strong> Method: </strong> Wideband reflectance was measured in 66 infants (mean age=46.0 h, SD=21.0, range=13.3-116.5h) who passed a test battery that included high frequency (1000 Hz) tympanometry, acoustic stapedial reflex, transient evoked otoacoustic emissions and distortion product otoacoustic emissions.
-</p>
-<p>
-<strong> Results: </strong> The analysis of variance (ANOVA) results showed significant variations of reflectance across the frequencies. There was no significant difference between ears and genders. The median reflectance reached a minimum of 0.21-0.24 at 1-2 kHz, but increased to 0.45-0.59 below 1 kHz and 0.24-0.52 above 2 kHz.
-</p>
-<p>
-<strong> Conclusions: </strong> The normative reflectance data established in the present study were in agreement with, but marginally smaller than, those of previous normative studies, except for the Keefe et al.&nbsp;(2000) study. While the use of a test battery approach to ensure normal middle ear function in neonates has resulted in slightly reduced reflectance across most frequencies when compared to studies that have used only otoacoustic emissions, further research is needed to accurately determine the middle ear status of neonates using test performance measures.
-</p>
-<pre><code>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |Sreedevi Aithal   |Sreedevi.aithal@health.qld.gov.au |2-Jan-2023    |                                                                                                                                                                                                      |</code></pre>
-|Aithal_2014 | 2014|Sreedevi Aithal, Joseph Kei, and Carlie Driscoll |Aithal et al.&nbsp;|Wideband Absorbance in Young Infants (0–6 months): A Cross-Sectional Study |J Am Acad Audiol |https://pubmed.ncbi.nlm.nih.gov/25257721/ |
-<p>
-<strong> Background: </strong> Wideband acoustic immittance (WAI) studies on infants have shown changes in WAI measures with age. These changes are attributed, at least in part, to developmental effects. However, developmental effects in young infants (0-6 mo) on WAI have not been systematically investigated.
-</p>
-<p>
-<strong> Purpose: </strong> The objective of this study was to compare wideband absorbance (WBA) in healthy neonates and infants aged 1, 2, 4, and 6 mo.
-</p>
-<p>
-<strong> Research Design: </strong> This was a prospective cross-sectional study. All participants were assessed by using 1-kHz tympanometry, distortion product otoacoustic emission (DPOAE) tests, and WBA tests.
-</p>
-<p>
-<strong> Study Sample </strong> Participants included 35 newborns (35 ears), 16 infants aged 1 mo (29 ears), 16 infants aged 2 mo (29 ears), 15 infants aged 4 mo (28 ears), and 14 infants aged 6 mo (27 ears). For each participant, the ears that passed both high-frequency (1-kHz) tympanometry and DPOAE tests were included for analysis.
-</p>
-<p>
-<strong> Data collection and analysis: </strong> WBA was recorded at ambient pressure conditions, and the response consisted of 16 data points at 1/3-octave frequencies from 0.25 to 8 kHz. A mixed-model analysis of variance (ANOVA) was applied to the data in each age group to evaluate the effects of sex, ear, and frequency on WBA. WBA was compared between various age groups. In addition, a separate mixed-model ANOVA was applied to WBA data, and post hoc analyses with the Bonferroni correction were performed at each of the 16 data points at 1/3-octave frequencies across age groups to examine the effect of age on WBA.
-</p><p>
-</p><p>
-<strong> Results: </strong> For all age groups, WBA was highest between 1.5 and 5 kHz and lowest at frequencies of less than 1.5 kHz and greater than 5 kHz. A developmental trend was evident, with both the 0- and 6-mo-old infants being significantly different from other age groups at most frequencies. The WBA results exhibited a multipeaked pattern for infants aged 0 to 2 mo, whereas a single broad peaked pattern for 4- and 6-mo-old infants was observed. The difference in WBA between 0- and 6-mo-old infants was statistically significant across most frequencies. In contrast, the WBA results for 1- and 2-mo-old infants were comparable. There were no significant sex or ear effects on WBA for all age groups.
-</p>
-<p>
-<strong> Conclusions: </strong> Developmental effects of WBA were evident for infants during the first 6 mo of life. The WBA data can be used as a reference for detecting disorders in the sound-conductive pathways (outer and middle ear) in young infants. Further development of age-specific normative WBA data in young infants is warranted.
-</p>
-<pre><code>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |Sreedevi Aithal   |Sreedevi.aithal@health.qld.gov.au |2-Jan-2023    |                                                                                                                                                                                                      |</code></pre>
-|Aithal_2014b | 2014|Sreedevi Aithal, Joseph Kei, and Carlie Driscoll |Aithal et al.&nbsp;|Wideband Absorbance in Australian Aboriginal and Caucasian Neonates |J Am Acad Audiol |https://pubmed.ncbi.nlm.nih.gov/25257722 |
-<p>
-<strong> Background: </strong> Despite the high prevalence of otitis media in Australian Aboriginal infants and children, the conductive mechanism of the outer and middle ear of Aboriginal neonates remains unclear. Differences in characteristics of the conductive pathway (outer and middle ear) between Aboriginal and Caucasian neonates have not been systematically investigated by using wideband acoustic immittance measures.
-</p>
-<p>
-<strong> Purpose: </strong> The objective of this study was to compare wideband absorbance (WBA) in Australian Aboriginal and Caucasian neonates who passed or failed a screening test battery containing high-frequency tympanometry and distortion product otoacoustic emissions (DPOAEs).
-</p>
-<p>
-<strong> Research Design: </strong> A cross-sectional study design was used. The mean WBA as a function of frequency was compared between Aboriginal and non-Aboriginal neonates who passed or failed the test battery.
-</p>
-<p>
-<strong> Study Sample: </strong> A total of 59 ears from 32 Aboriginal neonates (mean age, 51.9 h; standard deviation [SD], 18.2 h; range, 22–86 h) and 281 ears from 158 Caucasian neonates (mean age, 42.4 h; SD, 23.0 h; range, 8.1–152 h) who passed or failed 1000-Hz tympanometry and DPOAEs were included in the study.
-</p>
-<p>
-<strong> Data Collection and Analysis: </strong> &nbsp; WBAresults were analyzed by using descriptive statistics and t tests with Bonferroni adjustment. An analysis of variance with repeated measures was applied to the data.
-</p>
-<p>
-<strong> Results: </strong> Aboriginal and Caucasian neonates had almost identical pass rates of 61%, as determined by the test battery. Despite the apparently equal pass rates, the mean WBA of Aboriginal neonates who passed the test battery was significantly lower than that of their Caucasian counterparts at frequencies between 0.4 and 2 kHz. The mean WBA of Aboriginal neonates who failed the test battery was significantly lower than that of their Caucasian counterparts who also failed the test battery at frequencies between 1.5 and 3 kHz. Both Aboriginal and Caucasian neonates who failed the test battery had significantly lower WBA values than their counterparts who passed the test battery.
-</p>
-<p>
-<strong> Conclusions: </strong> This study provided convincing evidence that Aboriginal neonates had significantly lower WBA values than their Caucasian counterparts, although both groups had equal pass rates, as determined by the test battery. Although the two ethnic groups showed significant differences in WBA, the factors contributing to such differences remain undetermined. Further research is warranted to determine the factors that might account for the difference in WBA between the two ethnic groups.
-</p>
-<pre><code>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |Sreedevi Aithal   |Sreedevi.aithal@health.qld.gov.au |26-Feb-2023   |                                                                                                                                                                                                      |</code></pre>
-|Aithal_2015 | 2015|Sreedevi Aithal, Joseph Kei, Carlie Driscoll, Asaduzzaman Khan, and Andrew Swanston |Aithal et al.&nbsp;|Wideband Absorbance Outcomes in Newborns: A Comparison With High-Frequency Tympanometry, Automated Brainstem Response, and Transient Evoked and Distortion Product Otoacoustic Emissions |Ear Hear |https://pubmed.ncbi.nlm.nih.gov/25951046/ |
-<p>
-<strong> Objectives: </strong> The purpose of this study was to evaluate the test performance of wideband absorbance (WBA) in terms of its ability to predict the outer and middle ear status as determined by nine reference standards.
-</p>
-<p>
-<strong> Design: </strong> Automated auditory brainstem response (AABR), high-frequency (1000 Hz) tympanometry (HFT), transient evoked otoacoustic emission (TEOAE), and distortion product otoacoustic emission (DPOAE) tests were performed on 298 ears (144 right, 154 left) of 192 (108 males, 84 females) neonates with a mean age of 43.7 hours (SD = 21.3, range = 8.3 to 152.2 hr). WBA was measured from 0.25 to 8 kHz using clicks under ambient pressure conditions. Test performance of WBA was assessed in terms of its ability to identify conductive conditions in neonates when compared with nine reference standards (including four single tests and five test batteries) using the receiver operating characteristic analysis.
-</p>
-<p>
-<strong> Results: </strong> The test performance of WBA against the test battery reference standards was better than that against single test reference standards. The area under the receiver operating characteristic curve reached a high value of 0.78 for HFT + TEOAE + DPOAE and AABR + TEOAE + DPOAE reference standards. Within the ears that passed each of the reference standards, there were no significant differences in WBA. However, for the ears that failed each of the test standards, there were significant differences in WBA. The region between 1 and 4 kHz provided the best discriminability to evaluate the conductive status compared with other frequencies.
-</p>
-<p>
-<strong> Conclusions: </strong> WBA is a desirable measure of conductive conditions in newborns due to its high performance in classifying ears with conductive loss as determined by the best performing surrogate gold standards (HFT + TEOAE + DPOAE and AABR + TEOAE + DPOAE).
-</p>
-<pre><code>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |Sreedevi Aithal   |Sreedevi.Aithal@health.qld.gov.au |26-Feb-2023   |                                                                                                                                                                                                      |</code></pre>
-</div>
-<p>:::</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>DESCRIBE Subjects;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<caption>Displaying records 1 - 10</caption>
-<colgroup>
-<col style="width: 46%">
-<col style="width: 18%">
-<col style="width: 7%">
-<col style="width: 6%">
-<col style="width: 12%">
-<col style="width: 9%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Field</th>
-<th style="text-align: left;">Type</th>
-<th style="text-align: left;">Null</th>
-<th style="text-align: left;">Key</th>
-<th style="text-align: left;">Default</th>
-<th style="text-align: left;">Extra</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Identifier</td>
-<td style="text-align: left;">varchar(50)</td>
-<td style="text-align: left;">NO</td>
-<td style="text-align: left;">PRI</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">SubjectNumber</td>
-<td style="text-align: left;">int</td>
-<td style="text-align: left;">NO</td>
-<td style="text-align: left;">PRI</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">SessionTotal</td>
-<td style="text-align: left;">int</td>
-<td style="text-align: left;">NO</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">AgeFirstMeasurement</td>
-<td style="text-align: left;">float</td>
-<td style="text-align: left;">YES</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">AgeCategoryFirstMeasurement</td>
-<td style="text-align: left;">varchar(50)</td>
-<td style="text-align: left;">YES</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Sex</td>
-<td style="text-align: left;">varchar(50)</td>
-<td style="text-align: left;">NO</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Race</td>
-<td style="text-align: left;">varchar(50)</td>
-<td style="text-align: left;">NO</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Ethnicity</td>
-<td style="text-align: left;">varchar(50)</td>
-<td style="text-align: left;">NO</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">LeftEarStatusFirstMeasurement</td>
-<td style="text-align: left;">varchar(50)</td>
-<td style="text-align: left;">NO</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">RightEarStatusFirstMeasurement</td>
-<td style="text-align: left;">varchar(50)</td>
-<td style="text-align: left;">NO</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;"></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> Subjects</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> <span class="kw">Identifier</span> <span class="op">=</span> <span class="st">'Lewis_2015'</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="kw">LIMIT</span> <span class="dv">0</span>, <span class="dv">5</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<caption>5 records</caption>
-<colgroup>
-<col style="width: 3%">
-<col style="width: 4%">
-<col style="width: 4%">
-<col style="width: 6%">
-<col style="width: 9%">
-<col style="width: 2%">
-<col style="width: 3%">
-<col style="width: 4%">
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 40%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Identifier</th>
-<th style="text-align: right;">SubjectNumber</th>
-<th style="text-align: right;">SessionTotal</th>
-<th style="text-align: right;">AgeFirstMeasurement</th>
-<th style="text-align: left;">AgeCategoryFirstMeasurement</th>
-<th style="text-align: left;">Sex</th>
-<th style="text-align: left;">Race</th>
-<th style="text-align: left;">Ethnicity</th>
-<th style="text-align: left;">LeftEarStatusFirstMeasurement</th>
-<th style="text-align: left;">RightEarStatusFirstMeasurement</th>
-<th style="text-align: left;">SubjectNotes</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Lewis_2015</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">25</td>
-<td style="text-align: left;">Adult</td>
-<td style="text-align: left;">Female</td>
-<td style="text-align: left;">Caucasian</td>
-<td style="text-align: left;">NonHispanic</td>
-<td style="text-align: left;">Normal</td>
-<td style="text-align: left;">Normal</td>
-<td style="text-align: left;">Right ear: deep probe placement(session1):2.8989e-05 m^2, shallow placement(session2):4.1712e-05 m^2; Left ear data NA</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Lewis_2015</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">22</td>
-<td style="text-align: left;">Adult</td>
-<td style="text-align: left;">Female</td>
-<td style="text-align: left;">Caucasian</td>
-<td style="text-align: left;">NonHispanic</td>
-<td style="text-align: left;">Normal</td>
-<td style="text-align: left;">Normal</td>
-<td style="text-align: left;">Right ear: deep probe placement(session1):3.1677e-05 m^2, shallow placement(session2):4.1669e-05 m^2; Left ear data NA</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Lewis_2015</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">37</td>
-<td style="text-align: left;">Adult</td>
-<td style="text-align: left;">Female</td>
-<td style="text-align: left;">Caucasian</td>
-<td style="text-align: left;">NonHispanic</td>
-<td style="text-align: left;">Normal</td>
-<td style="text-align: left;">Normal</td>
-<td style="text-align: left;">Right ear: deep probe placement(session1):2.2295e-05 m^2, shallow placement(session2):2.9556e-05 m^2; Left ear data NA</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Lewis_2015</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">21</td>
-<td style="text-align: left;">Adult</td>
-<td style="text-align: left;">Male</td>
-<td style="text-align: left;">Caucasian</td>
-<td style="text-align: left;">NonHispanic</td>
-<td style="text-align: left;">Normal</td>
-<td style="text-align: left;">Normal</td>
-<td style="text-align: left;">Right ear: deep probe placement(session1):2.6597e-05 m^2, shallow placement(session2):3.3578e-05 m^2; Left ear data NA</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Lewis_2015</td>
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">25</td>
-<td style="text-align: left;">Adult</td>
-<td style="text-align: left;">Female</td>
-<td style="text-align: left;">Caucasian</td>
-<td style="text-align: left;">NonHispanic</td>
-<td style="text-align: left;">Normal</td>
-<td style="text-align: left;">Normal</td>
-<td style="text-align: left;">Right ear: deep probe placement(session1):3.6921e-05 m^2, shallow placement(session2):4.7702e-05 m^2; Left ear data NA</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
 <p><strong>PART 1: Recreating Voss (2020) Figure 1</strong></p>
 <p>In this part of my work, I recreated the Voss (2020) Figure 1 as closely as possible by utilizing ggplot2. I began by selecting my relevant variables, and joining via primary keys. I then isolated the data for the studies included in the plot, the desired frequencies, and grouped by the relevant variables. NOTE: Some deviation from the original figure results from updates in the dataset since the figure publication in 2020–4 years of additional data is included.</p>
 <div class="cell" data-output.var="freq_data">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> </span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>p.<span class="kw">Identifier</span>,</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>p.AuthorsShortList,</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>p.<span class="dt">Year</span>,</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>m.Instrument,</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="fu">COUNT</span>(<span class="kw">DISTINCT</span> <span class="fu">CONCAT</span>(m.SubjectNumber, m.Ear)) <span class="kw">AS</span> Unique_Ears,</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>m.Frequency, </span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="fu">AVG</span>(m.Absorbance) <span class="kw">AS</span> Mean_Absorbance</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> Measurements <span class="kw">AS</span> m </span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="kw">JOIN</span> PI_Info <span class="kw">AS</span> p</span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="kw">ON</span> m.<span class="kw">Identifier</span> <span class="op">=</span> p.<span class="kw">Identifier</span></span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="kw">JOIN</span> Subjects <span class="kw">AS</span> s <span class="kw">ON</span> m.SubjectNumber <span class="op">=</span> s.SubjectNumber</span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> p.<span class="kw">Identifier</span> <span class="kw">IN</span> (<span class="st">'Abur_2014'</span>, <span class="st">'Feeney_2017'</span>, <span class="st">'Groon_2015'</span>,</span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="st">'Lewis_2015'</span>, <span class="st">'Liu_2008'</span>, <span class="st">'Rosowski_2012'</span>, <span class="st">'Shahnaz_2006'</span>, </span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="st">'Shaver_2013'</span>, <span class="st">'Sun_2016'</span>, <span class="st">'Voss_1994'</span>, <span class="st">'Voss_2010'</span>, </span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="st">'Werner_2010'</span>)</span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="kw">AND</span> m.Frequency <span class="kw">BETWEEN</span> <span class="dv">200</span> <span class="kw">AND</span> <span class="dv">8000</span></span>
-<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> </span>
-<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>p.<span class="kw">Identifier</span>,</span>
-<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>p.AuthorsShortList,</span>
-<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>p.<span class="dt">Year</span>, m.Instrument,</span>
-<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>m.Frequency</span>
-<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a><span class="kw">HAVING</span></span>
-<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>Unique_Ears <span class="op">&gt;</span> <span class="dv">0</span></span>
-<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span></span>
-<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>p.<span class="kw">Identifier</span>, m.Frequency;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>p.<span class="kw">Identifier</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>p.AuthorsShortList,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>p.<span class="dt">Year</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>m.Instrument,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">COUNT</span>(<span class="kw">DISTINCT</span> <span class="fu">CONCAT</span>(m.SubjectNumber, m.Ear)) <span class="kw">AS</span> Unique_Ears,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>m.Frequency, </span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">AVG</span>(m.Absorbance) <span class="kw">AS</span> Mean_Absorbance</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> Measurements <span class="kw">AS</span> m </span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="kw">JOIN</span> PI_Info <span class="kw">AS</span> p</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="kw">ON</span> m.<span class="kw">Identifier</span> <span class="op">=</span> p.<span class="kw">Identifier</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="kw">JOIN</span> Subjects <span class="kw">AS</span> s <span class="kw">ON</span> m.SubjectNumber <span class="op">=</span> s.SubjectNumber</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> p.<span class="kw">Identifier</span> <span class="kw">IN</span> (<span class="st">'Abur_2014'</span>, <span class="st">'Feeney_2017'</span>, <span class="st">'Groon_2015'</span>,</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="st">'Lewis_2015'</span>, <span class="st">'Liu_2008'</span>, <span class="st">'Rosowski_2012'</span>, <span class="st">'Shahnaz_2006'</span>, </span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="st">'Shaver_2013'</span>, <span class="st">'Sun_2016'</span>, <span class="st">'Voss_1994'</span>, <span class="st">'Voss_2010'</span>, </span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="st">'Werner_2010'</span>)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="kw">AND</span> m.Frequency <span class="kw">BETWEEN</span> <span class="dv">200</span> <span class="kw">AND</span> <span class="dv">8000</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> </span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>p.<span class="kw">Identifier</span>,</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>p.AuthorsShortList,</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>p.<span class="dt">Year</span>, m.Instrument,</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>m.Frequency</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="kw">HAVING</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>Unique_Ears <span class="op">&gt;</span> <span class="dv">0</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>p.<span class="kw">Identifier</span>, m.Frequency;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>freq_data <span class="sc">|&gt;</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Label =</span> <span class="fu">paste</span>(AuthorsShortList, <span class="st">"("</span>, Year, <span class="st">") N="</span>, Unique_Ears, <span class="st">";"</span>, Instrument)) <span class="sc">|&gt;</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Label) <span class="sc">|&gt;</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Label)) <span class="sc">|&gt;</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Frequency, <span class="at">y =</span> Mean_Absorbance, <span class="at">color =</span> Label )) <span class="sc">+</span></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">method =</span> <span class="st">"loess"</span>, <span class="at">span =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">200</span>,<span class="dv">8000</span>), <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">200</span>, <span class="dv">8000</span>, <span class="at">by =</span> <span class="dv">1000</span>)) <span class="sc">+</span></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Mean absorbance from each publication in WAI database"</span>,</span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Frequency (Hz)"</span>,</span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Mean Absorbance"</span>, </span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Study Details"</span></span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> </span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()  <span class="sc">+</span></span>
-<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(</span>
-<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">"purple"</span>, <span class="st">"deepskyblue"</span>, <span class="st">"aquamarine"</span>, <span class="st">"darkolivegreen2"</span>, <span class="st">"darkseagreen1"</span>, <span class="st">"yellow"</span>, </span>
-<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">"khaki2"</span>, <span class="st">"lemonchiffon2"</span>, <span class="st">"goldenrod1"</span>, <span class="st">"orange"</span>, <span class="st">"sienna2"</span>, <span class="st">"red"</span>, <span class="st">"tomato4"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>freq_data <span class="sc">|&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Label =</span> <span class="fu">paste</span>(AuthorsShortList, <span class="st">"("</span>, Year, <span class="st">") N="</span>, Unique_Ears, <span class="st">";"</span>, Instrument)) <span class="sc">|&gt;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Label) <span class="sc">|&gt;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Label)) <span class="sc">|&gt;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Frequency, <span class="at">y =</span> Mean_Absorbance, <span class="at">color =</span> Label )) <span class="sc">+</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">method =</span> <span class="st">"loess"</span>, <span class="at">span =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">200</span>,<span class="dv">8000</span>), <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">200</span>, <span class="dv">8000</span>, <span class="at">by =</span> <span class="dv">1000</span>)) <span class="sc">+</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Mean absorbance from each publication in WAI database"</span>,</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Frequency (Hz)"</span>,</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Mean Absorbance"</span>, </span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Study Details"</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> </span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()  <span class="sc">+</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">"purple"</span>, <span class="st">"deepskyblue"</span>, <span class="st">"aquamarine"</span>, <span class="st">"darkolivegreen2"</span>, <span class="st">"darkseagreen1"</span>, <span class="st">"yellow"</span>, </span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">"khaki2"</span>, <span class="st">"lemonchiffon2"</span>, <span class="st">"goldenrod1"</span>, <span class="st">"orange"</span>, <span class="st">"sienna2"</span>, <span class="st">"red"</span>, <span class="st">"tomato4"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Mini-Project-4_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Mini-Project-4_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1040,44 +292,44 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>PART 2: Mean Absorbance of Lewis 2015 Study by Subject Race</strong></p>
 <p>In this part, I chose to visualize the data of the Lewis 2015 study whose data was collected within the WAI Database. In this, I grouped the data by subject race in visualization, maintaining the previous frequency threshold. I started by creating a SQL subquery for the data I desired, and visualized the mean absorbency to frequency of subjects amongst different racial groups</p>
 <div class="cell" data-output.var="race_data">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> </span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>s.Race, </span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>p.<span class="kw">Identifier</span>,</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="fu">COUNT</span>(<span class="kw">DISTINCT</span> <span class="fu">CONCAT</span>(m.SubjectNumber, m.Ear)) <span class="kw">AS</span> Unique_Ears,</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>m.Frequency, </span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="fu">AVG</span>(m.Absorbance) <span class="kw">AS</span> Mean_Absorbance</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> Measurements <span class="kw">AS</span> m </span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="kw">JOIN</span> PI_Info <span class="kw">AS</span> p</span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="kw">ON</span> m.<span class="kw">Identifier</span> <span class="op">=</span> p.<span class="kw">Identifier</span></span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="kw">JOIN</span> Subjects <span class="kw">AS</span> s <span class="kw">ON</span> m.SubjectNumber <span class="op">=</span> s.SubjectNumber</span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> </span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>p.<span class="kw">Identifier</span> <span class="op">=</span> (<span class="st">'Lewis_2015'</span>)</span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="kw">AND</span> m.Frequency <span class="kw">BETWEEN</span> <span class="dv">200</span> <span class="kw">AND</span> <span class="dv">8000</span></span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> s.Race, p.<span class="kw">Identifier</span>, m.Frequency</span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="kw">HAVING</span></span>
-<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>Unique_Ears <span class="op">&gt;</span> <span class="dv">0</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>s.Race, </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>p.<span class="kw">Identifier</span>,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">COUNT</span>(<span class="kw">DISTINCT</span> <span class="fu">CONCAT</span>(m.SubjectNumber, m.Ear)) <span class="kw">AS</span> Unique_Ears,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>m.Frequency, </span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">AVG</span>(m.Absorbance) <span class="kw">AS</span> Mean_Absorbance</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> Measurements <span class="kw">AS</span> m </span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="kw">JOIN</span> PI_Info <span class="kw">AS</span> p</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="kw">ON</span> m.<span class="kw">Identifier</span> <span class="op">=</span> p.<span class="kw">Identifier</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="kw">JOIN</span> Subjects <span class="kw">AS</span> s <span class="kw">ON</span> m.SubjectNumber <span class="op">=</span> s.SubjectNumber</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> </span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>p.<span class="kw">Identifier</span> <span class="op">=</span> (<span class="st">'Lewis_2015'</span>)</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="kw">AND</span> m.Frequency <span class="kw">BETWEEN</span> <span class="dv">200</span> <span class="kw">AND</span> <span class="dv">8000</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> s.Race, p.<span class="kw">Identifier</span>, m.Frequency</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="kw">HAVING</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>Unique_Ears <span class="op">&gt;</span> <span class="dv">0</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>race_data <span class="ot">&lt;-</span> race_data <span class="sc">|&gt;</span> </span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Race =</span> <span class="fu">str_trim</span>(Race),   </span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">Race =</span> <span class="fu">str_to_title</span>(Race)) </span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>race_data <span class="sc">|&gt;</span> </span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Race) <span class="sc">|&gt;</span></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Frequency, <span class="at">y =</span> Mean_Absorbance, <span class="at">color =</span> Race)) <span class="sc">+</span></span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">method =</span> <span class="st">"loess"</span>, <span class="at">span =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">200</span>, <span class="dv">8000</span>), <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">200</span>, <span class="dv">8000</span>, <span class="at">by =</span> <span class="dv">1000</span>)) <span class="sc">+</span></span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Mean absorbance by Subject Race in Lewis 2015 Data"</span>,</span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Frequency (Hz)"</span>,</span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Mean Absorbance"</span>, </span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Test Subject Race"</span></span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> </span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>race_data <span class="ot">&lt;-</span> race_data <span class="sc">|&gt;</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Race =</span> <span class="fu">str_trim</span>(Race),   </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">Race =</span> <span class="fu">str_to_title</span>(Race)) </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>race_data <span class="sc">|&gt;</span> </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Race) <span class="sc">|&gt;</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Frequency, <span class="at">y =</span> Mean_Absorbance, <span class="at">color =</span> Race)) <span class="sc">+</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">method =</span> <span class="st">"loess"</span>, <span class="at">span =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">200</span>, <span class="dv">8000</span>), <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">200</span>, <span class="dv">8000</span>, <span class="at">by =</span> <span class="dv">1000</span>)) <span class="sc">+</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Mean absorbance by Subject Race in Lewis 2015 Data"</span>,</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Frequency (Hz)"</span>,</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Mean Absorbance"</span>, </span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Test Subject Race"</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> </span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Mini-Project-4_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Mini-Project-4_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
