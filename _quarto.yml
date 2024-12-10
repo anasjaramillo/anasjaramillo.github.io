@@ -19,9 +19,9 @@ website:
           - href: Mini Project 2.qmd
             text: "Analyzing The Office Lines"
           - href: Mini Project 3.qmd
-            text: "Mini Project 3"
+            text: "Real Estate Simulation"
           - href: Mini Project 4.qmd
-            text: "Mini Project 4"
+            text: "SQL Data Analysis"
           - href: Final Presentation.qmd
             text: "Final Presentation"
 format:
