@@ -1,5 +1,5 @@
 ---
-title: "Mini Project 2"
+title: "Regular Expressions: Analyzing The Office Lines"
 description: |
   Analyzing Lines from The Office
 author: Ana Jaramillo
@@ -72,7 +72,7 @@ group_by(Character, Season) |>
 summarise(total_words = sum(total_words), .groups = 'drop') 
 ```
 
-# Finally! Graphing!!!
+# Finally Graphing!
 
 ```{r}
 ggplot(words_per_char, aes(x = Character, y = total_words, fill = Character)) +

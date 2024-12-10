@@ -1,5 +1,5 @@
 ---
-title: "Mini Project 4"
+title: "SQL Data Analysis"
 description: |
  Voss (2020) Figure and SQL WAI Data
 author: Ana Jaramillo
