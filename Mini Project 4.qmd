@@ -16,7 +16,7 @@ In this project, I plan to query the WAI Database to create two sub-queries: one
 
 **Figure 1 Voss (2020)**
 
-![](Voss 2020.jpg)
+![](Voss%202020.jpg)
 
 ```{r}
 library(DBI)

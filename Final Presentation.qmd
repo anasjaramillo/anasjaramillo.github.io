@@ -1,0 +1,183 @@
+---
+title: "Final Presentation"
+description: |
+  Presenting to Netflix Marketers
+author: Ana Jaramillo
+date: December 4, 2024
+format:
+  revealjs:
+    scrollable: true
+    slide-number: true
+    embed-resources: true
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+## Data Analyses of The Office
+
+Today, I will be presenting to you (NBC Marketers) some data from The Office that will be used to consider future directions for an upcoming season. With this, we hope to inform show producers' decisions and increase The Office's potential viewership.
+
+## The Office
+
+![Background](images/theoffice.jpg){.center width="69%"}
+
+The Office is a comedy mockumentary following the lifestyle of seemingly normal office workers at a branch of Dunder Mifflin Paper Company. It is an American show based off the original British version under the same name, adapted for NBC by Greg Daniels.
+
+## The Office Viewership
+
+Considerations:
+
+-   Character Popularity
+
+-   Line Designation for Future Seasons
+
+-   Existing Trends
+
+## Who is the Favorite Character?
+
+#### Ranker.com
+
+A platform for user-generated rankings on various topics, including entertainment.
+
+![It seems **Michael Scott** has the public vote.](images/favchar.png){.center width="84%"}
+
+## Method for Main Character Determination
+
+As the show follows multiple characters, there is some debate as to who exactly the main character is.
+
+-   **Method:**
+
+    -   Count the amount of words spoken by each character per season
+
+    -   Understand who the show writers center most
+
+## Data
+
+```{r}
+# Data 
+library(tidyverse)
+
+officelines <- read_csv("the-office_lines.csv")  
+head(officelines)
+```
+
+## Homogenizing Total Line Data
+
+```{r}
+# Cleaning Data
+officelines <- officelines |>
+mutate(Line = str_to_lower(Line))
+
+lines <- officelines$Line
+lines <- str_remove_all(lines, "[[:punct:]]")
+
+officelines <- officelines |>
+select(Character, Line, Season, Episode_Number) |>
+mutate(Line = lines) 
+
+# Counting the words
+words_per_char <- officelines |>
+mutate(word_count = lengths(str_split(Line, "\\s+"))) |>
+group_by(Character, Season) |>
+summarize(total_words = sum(word_count))
+```
+
+-   lowercase
+-   remove punctuation
+-   sum words said by character in a season
+
+## Most Relevant Characters
+
+![Selected via The Office Wiki](images/seasonpos.png){.center width="50%"}
+
+## Cleaning Character List
+
+```{r}
+distinct_char <- words_per_char |>
+  distinct(Character)
+
+distinct_char
+```
+
+Characters like "Pam's Mom" need to be removed! We should also should make sure to count things said by main characters together.
+
+## Filtering for Most Relevant Characters
+
+```{r}
+#Keeping only Main Characters & Cleaning Data
+main_characters <- c("Michael", "Jim", "Pam", "Dwight", "Andy", "Ryan", "Robert")
+
+words_dont_keep <- c("Voicemail", "Mom", "Dad", "Ad", "Fake", "Except", "Church")
+
+word_pattern_keep <- paste0("\\b(", paste(main_characters, collapse = "|"), ")\\b")
+
+word_pattern_delete <- paste0("\\b(", paste(words_dont_keep, collapse = "|"), ")\\b")
+
+get_rid_ands <- "\\s&\\s|\\sAnd\\s|/|,\\s"
+
+words_per_char <- words_per_char |>
+filter(str_detect(Character, word_pattern_keep)) |>
+filter(!str_detect(Character, word_pattern_delete)) |>
+mutate(Character = str_replace_all(Character, get_rid_ands, ", ")) |>
+separate_rows(Character, sep = ", ") |>
+filter(str_detect(Character, word_pattern_keep)) |>
+mutate(Character = case_when(
+str_detect(Character, "\\bJim\\b") ~ "Jim",
+str_detect(Character, "\\bPam\\b") ~ "Pam",
+str_detect(Character, "\\bDwight\\b") ~ "Dwight",
+str_detect(Character, "\\bMichael\\b") ~ "Michael",
+str_detect(Character, "\\bAndy\\b") ~ "Andy",
+str_detect(Character, "\\bRobert\\b") ~ "Robert", 
+str_detect(Character, "\\bRyan\\b") ~ "Ryan")) |>
+group_by(Character, Season) |>
+summarise(total_words = sum(total_words), .groups = 'drop') 
+```
+
+## Final Dataset
+
+```{r}
+
+words_per_char
+
+```
+
+## Data Visualization
+
+```{r}
+ggplot(words_per_char, aes(x = Character, y = total_words, fill = Character)) +
+geom_bar(stat = "identity") +
+facet_wrap(~Season) +
+theme_minimal() +
+labs(
+title = "Who says the most words in The Office?",
+subtitle = "Main characters selected via The Office Wiki",
+x = "Season", 
+y = "Total Words Spoken") +
+  theme(axis.text.x = element_blank())
+```
+
+## Takeaways
+
+-   **Michael Scott's Dominance in Word Count:**
+
+    -    Michael consistently speaks the most words across all seasons where he appears.
+
+-   **Drop in Michael’s Words After Season 7:**
+
+    -    There is a sharp decline in Michael’s dialogue starting in Season 8 (after his departure).
+
+    -   Other characters, such as Andy, Dwight, and Jim, seem to fill the void, but none fully replace his prominence.
+
+-   **Increased Focus on Other Characters in Later Seasons:**
+
+    -    Andy’s role expands significantly in Seasons 8 and 9.
+
+    -   Jim and Dwight play a strong secondary role.
+
+## Main Character and Trend
+
+To ensure the success of Season 10, producers should strongly consider bringing Michael Scott back as a central character. Michael Scott was not only a pivotal figure in the show’s narrative but also a driving force behind its immense popularity.
+
+Reinstating Michael Scott as the main character would tap into the nostalgia of long-time fans while reigniting interest among lapsed viewers. By leveraging his role as the heart of the show, NBC can create a revitalized narrative that resonates with both loyal fans and new audiences, ensuring sustained and even increased viewership for the series.

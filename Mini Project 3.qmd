@@ -1,7 +1,7 @@
 ---
-title: "Mini Project 3"
+title: "Real Estate Simulation"
 description: |
- Small Simulations
+ Real Estate Simulations
 author: Ana Jaramillo
 date: September 28, 2024
 format: html
@@ -9,8 +9,6 @@ execute:
   warning: false
   message: false
 ---
-
-# Option A: Conducting Permutation Test
 
 Data was sourced from \[Real Estate Valuation\](<https://archive.ics.uci.edu/dataset/477/real+estate+valuation+data+set>) from UC Irvine Machine Learning Repository by I-Cheng Yeh
 
@@ -23,6 +21,8 @@ As such, it wouldn't be a far fetch to believe a home's distance from an MRT sta
 **Null Hypothesis:** There is no association between the distance to the nearest MRT station and house price per unit area.
 
 **Alternative Hypothesis:** There is an association between the distance to the nearest MRT station and house price per unit area.
+
+# Conducting a Permutation Test
 
 ```{r}
 library(tidyverse)

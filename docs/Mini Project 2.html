@@ -10,7 +10,7 @@
 <meta name="dcterms.date" content="2024-09-28">
 <meta name="description" content="Analyzing Lines from The Office">
 
-<title>Ana Jaramillo’s Website - Mini Project 2</title>
+<title>Ana Jaramillo’s Website - Regular Expressions: Analyzing The Office Lines</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -150,7 +150,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
         <li>
     <a class="dropdown-item" href="./Mini Project 2.html">
- <span class="dropdown-text">Mini Project 2</span></a>
+ <span class="dropdown-text">Analyzing The Office Lines</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./Mini Project 3.html">
+ <span class="dropdown-text">Mini Project 3</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./Mini Project 4.html">
+ <span class="dropdown-text">Mini Project 4</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./Final Presentation.html">
+ <span class="dropdown-text">Final Presentation</span></a>
   </li>  
     </ul>
   </li>
@@ -172,7 +184,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#graph-1-who-says-the-most-words-per-season" id="toc-graph-1-who-says-the-most-words-per-season" class="nav-link active" data-scroll-target="#graph-1-who-says-the-most-words-per-season">Graph 1 (Who says the most words per season?)</a></li>
-  <li><a href="#finally-graphing" id="toc-finally-graphing" class="nav-link" data-scroll-target="#finally-graphing">Finally! Graphing!!!</a></li>
+  <li><a href="#finally-graphing" id="toc-finally-graphing" class="nav-link" data-scroll-target="#finally-graphing">Finally Graphing!</a></li>
   <li><a href="#graph-2-what-percentage-of-the-show-involves-cussing" id="toc-graph-2-what-percentage-of-the-show-involves-cussing" class="nav-link" data-scroll-target="#graph-2-what-percentage-of-the-show-involves-cussing">Graph 2 (What percentage of the show involves cussing?)</a></li>
   </ul>
 </nav>
@@ -182,7 +194,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Mini Project 2</h1>
+<h1 class="title">Regular Expressions: Analyzing The Office Lines</h1>
 </div>
 
 <div>
@@ -268,13 +280,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="fu">str_detect</span>(Character, <span class="st">"</span><span class="sc">\\</span><span class="st">bDwight</span><span class="sc">\\</span><span class="st">b"</span>) <span class="sc">~</span> <span class="st">"Dwight"</span>,</span>
 <span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="fu">str_detect</span>(Character, <span class="st">"</span><span class="sc">\\</span><span class="st">bMichael</span><span class="sc">\\</span><span class="st">b"</span>) <span class="sc">~</span> <span class="st">"Michael"</span>,</span>
 <span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="fu">str_detect</span>(Character, <span class="st">"</span><span class="sc">\\</span><span class="st">bAndy</span><span class="sc">\\</span><span class="st">b"</span>) <span class="sc">~</span> <span class="st">"Andy"</span>,</span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="fu">str_detect</span>(Character, <span class="st">"</span><span class="sc">\\</span><span class="st">bRobert</span><span class="sc">\\</span><span class="st">b"</span>) <span class="sc">~</span> <span class="st">"Robert"</span>, <span class="fu">str_detect</span>(Character, <span class="st">"</span><span class="sc">\\</span><span class="st">bRyan</span><span class="sc">\\</span><span class="st">b"</span>) <span class="sc">~</span> <span class="st">"Ryan"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="fu">group_by</span>(Character, Season) <span class="sc">|&gt;</span></span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="fu">summarise</span>(<span class="at">total_words =</span> <span class="fu">sum</span>(total_words), <span class="at">.groups =</span> <span class="st">'drop'</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="fu">str_detect</span>(Character, <span class="st">"</span><span class="sc">\\</span><span class="st">bRobert</span><span class="sc">\\</span><span class="st">b"</span>) <span class="sc">~</span> <span class="st">"Robert"</span>, </span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="fu">str_detect</span>(Character, <span class="st">"</span><span class="sc">\\</span><span class="st">bRyan</span><span class="sc">\\</span><span class="st">b"</span>) <span class="sc">~</span> <span class="st">"Ryan"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="fu">group_by</span>(Character, Season) <span class="sc">|&gt;</span></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="fu">summarise</span>(<span class="at">total_words =</span> <span class="fu">sum</span>(total_words), <span class="at">.groups =</span> <span class="st">'drop'</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="finally-graphing" class="level1">
-<h1>Finally! Graphing!!!</h1>
+<h1>Finally Graphing!</h1>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(words_per_char, <span class="fu">aes</span>(<span class="at">x =</span> Character, <span class="at">y =</span> total_words, <span class="at">fill =</span> Character)) <span class="sc">+</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>) <span class="sc">+</span></span>

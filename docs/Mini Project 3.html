@@ -8,9 +8,9 @@
 
 <meta name="author" content="Ana Jaramillo">
 <meta name="dcterms.date" content="2024-09-28">
-<meta name="description" content="Small Simulations">
+<meta name="description" content="Real Estate Simulations">
 
-<title>Ana Jaramillo’s Website - Mini Project 3</title>
+<title>Ana Jaramillo’s Website - Real Estate Simulation</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -150,11 +150,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
         <li>
     <a class="dropdown-item" href="./Mini Project 2.html">
- <span class="dropdown-text">Mini Project 2</span></a>
+ <span class="dropdown-text">Analyzing The Office Lines</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./Mini Project 3.html">
  <span class="dropdown-text">Mini Project 3</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./Mini Project 4.html">
+ <span class="dropdown-text">Mini Project 4</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./Final Presentation.html">
+ <span class="dropdown-text">Final Presentation</span></a>
   </li>  
     </ul>
   </li>
@@ -175,7 +183,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#option-a-conducting-permutation-test" id="toc-option-a-conducting-permutation-test" class="nav-link active" data-scroll-target="#option-a-conducting-permutation-test">Option A: Conducting Permutation Test</a></li>
+  <li><a href="#conducting-a-permutation-test" id="toc-conducting-a-permutation-test" class="nav-link active" data-scroll-target="#conducting-a-permutation-test">Conducting a Permutation Test</a></li>
   </ul>
 </nav>
     </div>
@@ -184,12 +192,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Mini Project 3</h1>
+<h1 class="title">Real Estate Simulation</h1>
 </div>
 
 <div>
   <div class="description">
-    <p>Small Simulations</p>
+    <p>Real Estate Simulations</p>
   </div>
 </div>
 
@@ -218,14 +226,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="option-a-conducting-permutation-test" class="level1">
-<h1>Option A: Conducting Permutation Test</h1>
 <p>Data was sourced from [Real Estate Valuation](<a href="https://archive.ics.uci.edu/dataset/477/real+estate+valuation+data+set" class="uri">https://archive.ics.uci.edu/dataset/477/real+estate+valuation+data+set</a>) from UC Irvine Machine Learning Repository by I-Cheng Yeh</p>
 <p>This dataset shows the historical market of real estate valuation collected from Sindian Dist., New Taipei City, Taiwan. It has many interesting variables to compare–features of homes that may increase or decrease its valuation. In particular, distance from homes to the nearest MRT station interested me, as Taiwan has an extensive public transport system; MRT being one of the most popular.</p>
 <p>As such, it wouldn’t be a far fetch to believe a home’s distance from an MRT station might increase valuation. As such, we might like to test the correlation between these variables to understand how significant MRT distance truly is to Taiwan’s real estate market.</p>
 <p><strong>Research Question:</strong> Is there a significant association between distance from the nearest MRT station and house price per unit area in Taiwan?</p>
 <p><strong>Null Hypothesis:</strong> There is no association between the distance to the nearest MRT station and house price per unit area.</p>
 <p><strong>Alternative Hypothesis:</strong> There is an association between the distance to the nearest MRT station and house price per unit area.</p>
+<section id="conducting-a-permutation-test" class="level1">
+<h1>Conducting a Permutation Test</h1>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>

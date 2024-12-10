@@ -82,5 +82,117 @@
     "title": "Mini Project 4",
     "section": "",
     "text": "Data was sourced from the [Wideband Acoustic Immittance (WAI) Database](https://www.science.smith.edu/wai-database/) hosted by Smith College\nIn this project, I plan to query the WAI Database to create two sub-queries: one that will allow me to reproduce Figure 1 of the Voss (2020) publication (see image below) and one to allow me to compare mean absorbency of sound among subjects of different races in one of the studies included in the WAI Database. I start by understanding the tables within the dataset and the variables of each relevant table, which is largely done by the DESCRIBE function. I continue by joining datasets with the information relevant to the figures–utilizing primary keys that connect the datasets, such as Identifier and SubjectNumber.\nFigure 1 Voss (2020)\n\n\nlibrary(DBI)\nlibrary(RMariaDB)\nlibrary(tidyverse)\ncon_wai &lt;- dbConnect(\n  MariaDB(), host = \"scidb.smith.edu\",\n  user = \"waiuser\", password = \"smith_waiDB\", \n  dbname = \"wai\"\n)\nMeasurements &lt;- tbl(con_wai, \"Measurements\")\nPI_Info &lt;- tbl(con_wai, \"PI_Info\")\nSubjects &lt;- tbl(con_wai, \"Subjects\")\n\nPART 1: Recreating Voss (2020) Figure 1\nIn this part of my work, I recreated the Voss (2020) Figure 1 as closely as possible by utilizing ggplot2. I began by selecting my relevant variables, and joining via primary keys. I then isolated the data for the studies included in the plot, the desired frequencies, and grouped by the relevant variables. NOTE: Some deviation from the original figure results from updates in the dataset since the figure publication in 2020–4 years of additional data is included.\n\nSELECT \np.Identifier,\np.AuthorsShortList,\np.Year,\nm.Instrument,\nCOUNT(DISTINCT CONCAT(m.SubjectNumber, m.Ear)) AS Unique_Ears,\nm.Frequency, \nAVG(m.Absorbance) AS Mean_Absorbance\nFROM Measurements AS m \nJOIN PI_Info AS p\nON m.Identifier = p.Identifier\nJOIN Subjects AS s ON m.SubjectNumber = s.SubjectNumber\nWHERE p.Identifier IN ('Abur_2014', 'Feeney_2017', 'Groon_2015',\n'Lewis_2015', 'Liu_2008', 'Rosowski_2012', 'Shahnaz_2006', \n'Shaver_2013', 'Sun_2016', 'Voss_1994', 'Voss_2010', \n'Werner_2010')\nAND m.Frequency BETWEEN 200 AND 8000\nGROUP BY \np.Identifier,\np.AuthorsShortList,\np.Year, m.Instrument,\nm.Frequency\nHAVING\nUnique_Ears &gt; 0\nORDER BY\np.Identifier, m.Frequency;\n\n\nfreq_data |&gt;\n  mutate(Label = paste(AuthorsShortList, \"(\", Year, \") N=\", Unique_Ears, \";\", Instrument)) |&gt;\n  group_by(Label) |&gt;\n  arrange(desc(Label)) |&gt;\n  ggplot(aes(x = Frequency, y = Mean_Absorbance, color = Label )) +\n  geom_smooth(se = FALSE, method = \"loess\", span = 0.3) +\n  scale_x_continuous(limits = c(200,8000), breaks = seq(200, 8000, by = 1000)) +\n  labs(\n    title = \"Mean absorbance from each publication in WAI database\",\n    x = \"Frequency (Hz)\",\n    y = \"Mean Absorbance\", \n    color = \"Study Details\"\n  ) + \n  theme_minimal()  +\n  scale_color_manual(values = c(\n    \"purple\", \"deepskyblue\", \"aquamarine\", \"darkolivegreen2\", \"darkseagreen1\", \"yellow\", \n    \"khaki2\", \"lemonchiffon2\", \"goldenrod1\", \"orange\", \"sienna2\", \"red\", \"tomato4\"))\n\n\n\n\n\n\n\n\nPART 2: Mean Absorbance of Lewis 2015 Study by Subject Race\nIn this part, I chose to visualize the data of the Lewis 2015 study whose data was collected within the WAI Database. In this, I grouped the data by subject race in visualization, maintaining the previous frequency threshold. I started by creating a SQL subquery for the data I desired, and visualized the mean absorbency to frequency of subjects amongst different racial groups\n\nSELECT \ns.Race, \np.Identifier,\nCOUNT(DISTINCT CONCAT(m.SubjectNumber, m.Ear)) AS Unique_Ears,\nm.Frequency, \nAVG(m.Absorbance) AS Mean_Absorbance\nFROM Measurements AS m \nJOIN PI_Info AS p\nON m.Identifier = p.Identifier\nJOIN Subjects AS s ON m.SubjectNumber = s.SubjectNumber\nWHERE \np.Identifier = ('Lewis_2015')\nAND m.Frequency BETWEEN 200 AND 8000\nGROUP BY s.Race, p.Identifier, m.Frequency\nHAVING\nUnique_Ears &gt; 0;\n\n\nrace_data &lt;- race_data |&gt; \n  mutate(Race = str_trim(Race),   \n         Race = str_to_title(Race)) \n\nrace_data |&gt; \n  group_by(Race) |&gt;\n  ggplot(aes(x = Frequency, y = Mean_Absorbance, color = Race)) +\n  geom_smooth(se = FALSE, method = \"loess\", span = 0.3) +\n  scale_x_continuous(limits = c(200, 8000), breaks = seq(200, 8000, by = 1000)) +\n  labs(\n    title = \"Mean absorbance by Subject Race in Lewis 2015 Data\",\n    x = \"Frequency (Hz)\",\n    y = \"Mean Absorbance\", \n    color = \"Test Subject Race\"\n  ) + \n  theme_minimal()\n\n\n\n\n\n\n\n\nTo conclude, I created subqueries of the WAI Database to best manipulate the data into visualizations using ggplot2. Although the data originated in SQL form, SQL was used to create subqueries that translate into a dataframe output in R. This was then used to create graphs via ggplot2 and tidyverse functions. In the end, a graph mimicking the output of Voss (2020) Figure 1 (with slight, noted deviations) and a graph to visualize another aspect of a specific study, Lewis 2015, differences in mean absorbency at different frequencies among subject race.\nCitation:\nVoss, Susan E., et al. “Wideband Acoustic Immittance Dataset.” Api.Openalex.Org, Smith College, api.openalex.org/works/doi:10.3837/tiis.2022.12.001. Accessed 28 Nov. 2024.\ndoi.org/10.35482/egr.001.2022\nVoss, Susan E. “An Online Wideband Acoustic Immittance (WAI) Database and Corresponding Website.” Ear and Hearing, U.S. National Library of Medicine, 1 Nov. 2020, pmc.ncbi.nlm.nih.gov/articles/PMC7093226/."
+  },
+  {
+    "objectID": "Final Presentation.html#data-analyses-of-the-office",
+    "href": "Final Presentation.html#data-analyses-of-the-office",
+    "title": "Final Presentation",
+    "section": "Data Analyses of The Office",
+    "text": "Data Analyses of The Office\nToday, I will be presenting to you (NBC Marketers) some data from The Office that will be used to consider future directions for an upcoming season. With this, we hope to inform show producers’ decisions and increase The Office’s potential viewership."
+  },
+  {
+    "objectID": "Final Presentation.html#the-office-background",
+    "href": "Final Presentation.html#the-office-background",
+    "title": "Final Presentation",
+    "section": "The Office: Background",
+    "text": "The Office: Background\n\nDescriptionThe Office is a comedy mockumentary following the lifestyle of seemingly normal office workers at a branch of Dunder Mifflin Paper Company. It is an American show based off the original British version under the same name, adapted for NBC by Greg Daniels."
+  },
+  {
+    "objectID": "Final Presentation.html#the-office-viewership",
+    "href": "Final Presentation.html#the-office-viewership",
+    "title": "Final Presentation",
+    "section": "The Office Viewership",
+    "text": "The Office Viewership\nConsiderations:\n\nCharacter Popularity\nLine Designation for Future Seasons\nExisting Trends"
+  },
+  {
+    "objectID": "Final Presentation.html#who-is-the-favorite-character",
+    "href": "Final Presentation.html#who-is-the-favorite-character",
+    "title": "Final Presentation",
+    "section": "Who is the Favorite Character?",
+    "text": "Who is the Favorite Character?\nRanker.com\nA platform for user-generated rankings on various topics, including entertainment.\n\nIt seems Michael Scott has the public vote."
+  },
+  {
+    "objectID": "Final Presentation.html#method-for-main-character-determination",
+    "href": "Final Presentation.html#method-for-main-character-determination",
+    "title": "Final Presentation",
+    "section": "Method for Main Character Determination",
+    "text": "Method for Main Character Determination\nAs the show follows multiple characters, there is some debate as to who exactly the main character is.\n\nMethod:\n\nCount the amount of words spoken by each character per season\nUnderstand who the show writers center most"
+  },
+  {
+    "objectID": "Final Presentation.html#data",
+    "href": "Final Presentation.html#data",
+    "title": "Final Presentation",
+    "section": "Data",
+    "text": "Data\n\n# Data \nlibrary(tidyverse)\n\nofficelines &lt;- read_csv(\"the-office_lines.csv\")  \nhead(officelines)\n\n# A tibble: 6 × 5\n   ...1 Character Line                                     Season Episode_Number\n  &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;                                     &lt;dbl&gt;          &lt;dbl&gt;\n1     0 Michael   All right Jim. Your quarterlies look ve…      1              1\n2     1 Jim       Oh, I told you. I couldn’t close it. So…      1              1\n3     2 Michael   So you’ve come to the master for guidan…      1              1\n4     3 Jim       Actually, you called me in here, but ye…      1              1\n5     4 Michael   All right. Well, let me show you how it…      1              1\n6     5 Michael   [on the phone] Yes, I’d like to speak t…      1              1"
+  },
+  {
+    "objectID": "Final Presentation.html#homogenizing-line-data",
+    "href": "Final Presentation.html#homogenizing-line-data",
+    "title": "Final Presentation",
+    "section": "Homogenizing Line Data",
+    "text": "Homogenizing Line Data\n  \n\n# Cleaning Data\nofficelines &lt;- officelines |&gt; \n  mutate(Line = str_to_lower(Line))  \nlines &lt;- officelines$Line \nlines &lt;- str_remove_all(lines, \"[[:punct:]]\")  \nofficelines &lt;- officelines |&gt; \n  select(Character, Line, Season, Episode_Number) |&gt; \n  mutate(Line = lines)   \n\n# Homogenizing the lines \nwords_per_char &lt;- officelines |&gt; \n  mutate(word_count = lengths(str_split(Line, \"\\\\s+\"))) |&gt; \n  group_by(Character, Season) |&gt; \n  summarize(total_words = sum(word_count))"
+  },
+  {
+    "objectID": "Final Presentation.html#most-relevant-characters",
+    "href": "Final Presentation.html#most-relevant-characters",
+    "title": "Final Presentation",
+    "section": "Most Relevant Characters",
+    "text": "Most Relevant Characters\n\nSelected via The Office Wiki"
+  },
+  {
+    "objectID": "Final Presentation.html#cleaning-character-list",
+    "href": "Final Presentation.html#cleaning-character-list",
+    "title": "Final Presentation",
+    "section": "Cleaning Character List",
+    "text": "Cleaning Character List\n\ndistinct_char &lt;- words_per_char |&gt;\n  distinct(Character)\n\ndistinct_char\n\n# A tibble: 776 × 1\n# Groups:   Character [776]\n   Character           \n   &lt;chr&gt;               \n 1 (Pam’S Mom) Heleen  \n 2 3Rd Athlead Employee\n 3 4Th Athlead Employee\n 4 A.J.                \n 5 Aaron Rodgers       \n 6 Abby                \n 7 Abe                 \n 8 Actor               \n 9 Actress             \n10 Ad Guy 1            \n# ℹ 766 more rows\n\n\nCharacters like “Pam’s Mom” need to be removed! We should also should make sure to count things said by main characters together."
+  },
+  {
+    "objectID": "Final Presentation.html#filtering-for-most-relevant-characters",
+    "href": "Final Presentation.html#filtering-for-most-relevant-characters",
+    "title": "Final Presentation",
+    "section": "Filtering for Most Relevant Characters",
+    "text": "Filtering for Most Relevant Characters\n\n#Keeping only Main Characters & Cleaning Data\nmain_characters &lt;- c(\"Michael\", \"Jim\", \"Pam\", \"Dwight\", \"Andy\", \"Ryan\", \"Robert\")\n\nwords_dont_keep &lt;- c(\"Voicemail\", \"Mom\", \"Dad\", \"Ad\", \"Fake\", \"Except\", \"Church\")\n\nword_pattern_keep &lt;- paste0(\"\\\\b(\", paste(main_characters, collapse = \"|\"), \")\\\\b\")\n\nword_pattern_delete &lt;- paste0(\"\\\\b(\", paste(words_dont_keep, collapse = \"|\"), \")\\\\b\")\n\nget_rid_ands &lt;- \"\\\\s&\\\\s|\\\\sAnd\\\\s|/|,\\\\s\"\n\nwords_per_char &lt;- words_per_char |&gt;\nfilter(str_detect(Character, word_pattern_keep)) |&gt;\nfilter(!str_detect(Character, word_pattern_delete)) |&gt;\nmutate(Character = str_replace_all(Character, get_rid_ands, \", \")) |&gt;\nseparate_rows(Character, sep = \", \") |&gt;\nfilter(str_detect(Character, word_pattern_keep)) |&gt;\nmutate(Character = case_when(\nstr_detect(Character, \"\\\\bJim\\\\b\") ~ \"Jim\",\nstr_detect(Character, \"\\\\bPam\\\\b\") ~ \"Pam\",\nstr_detect(Character, \"\\\\bDwight\\\\b\") ~ \"Dwight\",\nstr_detect(Character, \"\\\\bMichael\\\\b\") ~ \"Michael\",\nstr_detect(Character, \"\\\\bAndy\\\\b\") ~ \"Andy\",\nstr_detect(Character, \"\\\\bRobert\\\\b\") ~ \"Robert\", \nstr_detect(Character, \"\\\\bRyan\\\\b\") ~ \"Ryan\")) |&gt;\ngroup_by(Character, Season) |&gt;\nsummarise(total_words = sum(total_words), .groups = 'drop')"
+  },
+  {
+    "objectID": "Final Presentation.html#final-dataset",
+    "href": "Final Presentation.html#final-dataset",
+    "title": "Final Presentation",
+    "section": "Final Dataset",
+    "text": "Final Dataset\n\nwords_per_char\n\n# A tibble: 55 × 3\n   Character Season total_words\n   &lt;chr&gt;      &lt;dbl&gt;       &lt;int&gt;\n 1 Andy           3        4867\n 2 Andy           4        2924\n 3 Andy           5        5624\n 4 Andy           6        6776\n 5 Andy           7        6611\n 6 Andy           8       14452\n 7 Andy           9        9157\n 8 Dwight         1        3699\n 9 Dwight         2       11895\n10 Dwight         3       10226\n# ℹ 45 more rows"
+  },
+  {
+    "objectID": "Final Presentation.html#data-visualization",
+    "href": "Final Presentation.html#data-visualization",
+    "title": "Final Presentation",
+    "section": "Data Visualization",
+    "text": "Data Visualization\n\nggplot(words_per_char, aes(x = Character, y = total_words, fill = Character)) +\ngeom_bar(stat = \"identity\") +\nfacet_wrap(~Season) +\ntheme_minimal() +\nlabs(\ntitle = \"Who says the most words in The Office?\",\nsubtitle = \"Main characters selected via The Office Wiki\",\nx = \"Season\", \ny = \"Total Words Spoken\") +\n  theme(axis.text.x = element_blank())"
+  },
+  {
+    "objectID": "Final Presentation.html#takeaways",
+    "href": "Final Presentation.html#takeaways",
+    "title": "Final Presentation",
+    "section": "Takeaways",
+    "text": "Takeaways\n\nMichael Scott’s Dominance in Word Count:\n\nMichael consistently speaks the most words across all seasons where he appears.\n\nDrop in Michael’s Words After Season 7:\n\nThere is a sharp decline in Michael’s dialogue starting in Season 8 (after his departure).\nOther characters, such as Andy, Dwight, and Jim, seem to fill the void, but none fully replace his prominence.\n\nIncreased Focus on Other Characters in Later Seasons:\n\nAndy’s role expands significantly in Seasons 8 and 9.\nJim and Dwight play a strong secondary role."
+  },
+  {
+    "objectID": "Final Presentation.html#main-character-and-trend",
+    "href": "Final Presentation.html#main-character-and-trend",
+    "title": "Final Presentation",
+    "section": "Main Character and Trend",
+    "text": "Main Character and Trend\nTo ensure the success of Season 10, producers should strongly consider bringing Michael Scott back as a central character. Michael Scott was not only a pivotal figure in the show’s narrative but also a driving force behind its immense popularity.\nReinstating Michael Scott as the main character would tap into the nostalgia of long-time fans while reigniting interest among lapsed viewers. By leveraging his role as the heart of the show, NBC can create a revitalized narrative that resonates with both loyal fans and new audiences, ensuring sustained and even increased viewership for the series."
+  },
+  {
+    "objectID": "Final Presentation.html#the-office",
+    "href": "Final Presentation.html#the-office",
+    "title": "Final Presentation",
+    "section": "The Office",
+    "text": "The Office\n\nBackgroundThe Office is a comedy mockumentary following the lifestyle of seemingly normal office workers at a branch of Dunder Mifflin Paper Company. It is an American show based off the original British version under the same name, adapted for NBC by Greg Daniels."
+  },
+  {
+    "objectID": "Final Presentation.html#homogenizing-total-line-data",
+    "href": "Final Presentation.html#homogenizing-total-line-data",
+    "title": "Final Presentation",
+    "section": "Homogenizing Total Line Data",
+    "text": "Homogenizing Total Line Data\n\n# Cleaning Data\nofficelines &lt;- officelines |&gt;\nmutate(Line = str_to_lower(Line))\n\nlines &lt;- officelines$Line\nlines &lt;- str_remove_all(lines, \"[[:punct:]]\")\n\nofficelines &lt;- officelines |&gt;\nselect(Character, Line, Season, Episode_Number) |&gt;\nmutate(Line = lines) \n\n# Counting the words\nwords_per_char &lt;- officelines |&gt;\nmutate(word_count = lengths(str_split(Line, \"\\\\s+\"))) |&gt;\ngroup_by(Character, Season) |&gt;\nsummarize(total_words = sum(word_count))\n\n\nlowercase\nremove punctuation\nsum words said by character in a season"
   }
 ]
