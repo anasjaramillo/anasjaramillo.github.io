@@ -8,9 +8,9 @@
 
 <meta name="author" content="Ana Jaramillo">
 <meta name="dcterms.date" content="2024-09-19">
-<meta name="description" content="Numbats in Australia Plots">
+<meta name="description" content="TidyTuesday #1: Numbats in Australia Plots">
 
-<title>Ana Jaramillo’s Website - TidyTuesday #1</title>
+<title>Ana Jaramillo’s Website - Numbats Plots</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -135,6 +135,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link" href="./about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./Resume.html"> 
+<span class="menu-text">Resume</span></a>
+  </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-data-viz" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Data Viz</span>
@@ -142,11 +146,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="dropdown-menu" aria-labelledby="nav-menu-data-viz">    
         <li>
     <a class="dropdown-item" href="./TT1.html">
- <span class="dropdown-text">TidyTuesday #1</span></a>
+ <span class="dropdown-text">Numbat Plots</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./TT2.html">
- <span class="dropdown-text">TidyTuesday #2</span></a>
+ <span class="dropdown-text">Egg Production Plots</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./Mini Project 2.html">
@@ -154,15 +158,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
         <li>
     <a class="dropdown-item" href="./Mini Project 3.html">
- <span class="dropdown-text">Mini Project 3</span></a>
+ <span class="dropdown-text">Real Estate Simulation</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./Mini Project 4.html">
- <span class="dropdown-text">Mini Project 4</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./Final Presentation.html">
- <span class="dropdown-text">Final Presentation</span></a>
+ <span class="dropdown-text">SQL Data Analysis</span></a>
   </li>  
     </ul>
   </li>
@@ -186,12 +186,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">TidyTuesday #1</h1>
+<h1 class="title">Numbats Plots</h1>
 </div>
 
 <div>
   <div class="description">
-    <p>Numbats in Australia Plots</p>
+    <p>TidyTuesday #1: Numbats in Australia Plots</p>
   </div>
 </div>
 
@@ -221,6 +221,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p>The data this week comes from the <a href="https://www.ala.org.au">Atlas of Living Australia</a>. Thanks to Di Cook for <a href="https://github.com/numbats/numbats-tidytuesday">preparing this week’s dataset</a>!</p>
+<p>This plot visualizes the geographic coordinates of 787 sightings of the Numbat (Myrmecobius fasciatus), an iconic marsupial native to Australia. The data showcases the distribution of this species based on recorded observations.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Packages</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
@@ -261,6 +262,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
+<p>The x-axis represents latitude, and the y-axis represents longitude, offering a two-dimensional view of where Numbats have been documented. Numbats are known for their striking striped coats and their ecological role as termite specialists, making this species an essential part of Australia’s biodiversity.</p>
+<p>Through visualizations like this, we can better understand the spatial patterns of Numbat occurrences, which can be crucial for conservation efforts aimed at protecting their natural habitats. Their distribution is primarily concentrated in specific regions of Australia, which aligns with known ecological and environmental conditions favorable for this species.</p>
 
 
 

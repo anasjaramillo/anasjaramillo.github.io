@@ -1,7 +1,7 @@
 ---
-title: "TidyTuesday #1"
+title: "Numbats Plots"
 description: |
-  Numbats in Australia Plots
+  TidyTuesday #1: Numbats in Australia Plots
 author: Ana Jaramillo
 date: September 19, 2024
 format: html
@@ -11,6 +11,9 @@ execute:
 ---
 
 The data this week comes from the [Atlas of Living Australia](https://www.ala.org.au). Thanks to Di Cook for [preparing this week's dataset](https://github.com/numbats/numbats-tidytuesday)!
+
+This plot visualizes the geographic coordinates of 787 sightings of the Numbat (Myrmecobius fasciatus), an iconic marsupial native to Australia. The data showcases the distribution of this species based on recorded observations.
+
 
 ```{r}
 # Packages
@@ -31,3 +34,7 @@ ggplot(data = numbats, aes(x = decimalLatitude, y = decimalLongitude)) +
   labs(title = "Coordinates of 787 Numbats (Myrmecobius fasciatus)", x = "Coordinate Latitude", y = "Coordinate Longitude")
   
 ```
+
+The x-axis represents latitude, and the y-axis represents longitude, offering a two-dimensional view of where Numbats have been documented. Numbats are known for their striking striped coats and their ecological role as termite specialists, making this species an essential part of Australia's biodiversity.
+
+Through visualizations like this, we can better understand the spatial patterns of Numbat occurrences, which can be crucial for conservation efforts aimed at protecting their natural habitats. Their distribution is primarily concentrated in specific regions of Australia, which aligns with known ecological and environmental conditions favorable for this species.

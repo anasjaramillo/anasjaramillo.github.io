@@ -10,11 +10,13 @@ execute:
   message: false
 ---
 
+
 This project utilizes the [Wideband Acoustic Immittance (WAI) Database](https://www.science.smith.edu/wai-database/) hosted by Smith College to explore data analysis using SQL and R. Specifically, I reproduced **Figure 1** from the Voss (2020) publication and created a visualization comparing mean absorbance of sound among subjects of different races from one study in the database. The dataset was explored and manipulated in SQL, while R was used for visualization.
 
 **Figure 1 Voss (2020)**
 
 ![](Voss%202020.jpg)
+
 
 ```{r}
 library(DBI)
@@ -30,9 +32,11 @@ PI_Info <- tbl(con_wai, "PI_Info")
 Subjects <- tbl(con_wai, "Subjects")
 ```
 
+
 **PART 1: Recreating Voss (2020) Figure 1**
 
 In this part of my work, I recreated the Voss (2020) Figure 1 as closely as possible by utilizing ggplot2. I began by selecting my relevant variables, and joining via primary keys. I then isolated the data for the studies included in the plot, the desired frequencies, and grouped by the relevant variables. NOTE: Some deviation from the original figure results from updates in the dataset since the figure publication in 2020--4 years of additional data is included.
+
 
 ```{sql}
 #| connection: con_wai
@@ -85,9 +89,11 @@ freq_data |>
     "khaki2", "lemonchiffon2", "goldenrod1", "orange", "sienna2", "red", "tomato4"))
 ```
 
+
 **PART 2: Mean Absorbance of Lewis 2015 Study by Subject Race**
 
 In this part, I chose to visualize the data of the Lewis 2015 study whose data was collected within the WAI Database. In this, I grouped the data by subject race in visualization, maintaining the previous frequency threshold. I started by creating a SQL subquery for the data I desired, and visualized the mean absorbency to frequency of subjects amongst different racial groups
+
 
 ```{sql}
 #| connection: con_wai
@@ -131,6 +137,7 @@ race_data |>
   
 ```
 
+
 To conclude, I created subqueries of the WAI Database to best manipulate the data into visualizations using ggplot2. Although the data originated in SQL form, SQL was used to create subqueries that translate into a dataframe output in R. This was then used to create graphs via ggplot2 and tidyverse functions. In the end, a graph mimicking the output of Voss (2020) Figure 1 (with slight, noted deviations) and a graph to visualize another aspect of a specific study, Lewis 2015, differences in mean absorbency at different frequencies among subject race.
 
 Citation:
@@ -140,3 +147,4 @@ Voss, Susan E., et al. “Wideband Acoustic Immittance Dataset.” *Api.Openalex
 doi.org/10.35482/egr.001.2022
 
 Voss, Susan E. “An Online Wideband Acoustic Immittance (WAI) Database and Corresponding Website.” *Ear and Hearing*, U.S. National Library of Medicine, 1 Nov. 2020, pmc.ncbi.nlm.nih.gov/articles/PMC7093226/.
+

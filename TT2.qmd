@@ -12,13 +12,17 @@ execute:
 
 The data this week comes from [The Humane League's US Egg Production dataset](https://thehumaneleague.org/article/E008R01-us-egg-production-data) by [Samara Mendez](https://samaramendez.github.io/). Dataset and code is available for this project on OSF at [US Egg Production Data Set](https://osf.io/z2gxn/).
 
+This plot explores the egg-laying productivity of hens during the year 2020, based on data from The Humane League's US Egg Production dataset, curated by Samara Mendez for this TidyTuesday project.
+
+
 ```{r}
 # Packages
 library(tidyverse)
 library(ggplot2)
 
 # Data
-eggproduction  <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2023/2023-04-11/egg-production.csv')
+eggproduction  <- 
+  readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2023/2023-04-11/egg-production.csv')
 
 
 # Filter by year
@@ -39,3 +43,9 @@ ggplot(eggproduction, aes(x = observed_month, y = n_eggs/n_hens)) +
 
 
 ```
+
+The graph represents the average number of eggs laid per hen per month, calculated by dividing the total number of eggs produced by the number of hens. Each point corresponds to a specific month, providing a snapshot of hen productivity over the year.
+
+The x-axis shows the date, while the y-axis reflects the number of eggs laid per hen. This visualization assumes equal productivity across all hens, offering an aggregated view of egg production trends.
+
+Insights from this plot can inform discussions about egg production efficiency, seasonal trends in hen productivity, and the potential impact of external factors like feed quality, environmental conditions, or farming practices during 2020. Additionally, the data highlights the scale of egg production in the U.S., contributing to broader conversations about food systems, sustainability, and animal welfare.

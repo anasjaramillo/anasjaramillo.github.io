@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Ana Jaramillo">
-<meta name="dcterms.date" content="2024-09-28">
+<meta name="dcterms.date" content="2024-11-08">
 <meta name="description" content="Real Estate Simulations">
 
 <title>Ana Jaramillo’s Website - Real Estate Simulation</title>
@@ -135,6 +135,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link" href="./about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./Resume.html"> 
+<span class="menu-text">Resume</span></a>
+  </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-data-viz" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Data Viz</span>
@@ -142,11 +146,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="dropdown-menu" aria-labelledby="nav-menu-data-viz">    
         <li>
     <a class="dropdown-item" href="./TT1.html">
- <span class="dropdown-text">TidyTuesday #1</span></a>
+ <span class="dropdown-text">Numbat Plots</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./TT2.html">
- <span class="dropdown-text">TidyTuesday #2</span></a>
+ <span class="dropdown-text">Egg Production Plots</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./Mini Project 2.html">
@@ -154,15 +158,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
         <li>
     <a class="dropdown-item" href="./Mini Project 3.html">
- <span class="dropdown-text">Mini Project 3</span></a>
+ <span class="dropdown-text">Real Estate Simulation</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./Mini Project 4.html">
- <span class="dropdown-text">Mini Project 4</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./Final Presentation.html">
- <span class="dropdown-text">Final Presentation</span></a>
+ <span class="dropdown-text">SQL Data Analysis</span></a>
   </li>  
     </ul>
   </li>
@@ -183,7 +183,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#conducting-a-permutation-test" id="toc-conducting-a-permutation-test" class="nav-link active" data-scroll-target="#conducting-a-permutation-test">Conducting a Permutation Test</a></li>
+  <li><a href="#visualizing-the-data" id="toc-visualizing-the-data" class="nav-link active" data-scroll-target="#visualizing-the-data">Visualizing the Data</a></li>
+  <li><a href="#conducting-a-permutation-test" id="toc-conducting-a-permutation-test" class="nav-link" data-scroll-target="#conducting-a-permutation-test">Conducting a Permutation Test</a></li>
+  <li><a href="#statistical-testing" id="toc-statistical-testing" class="nav-link" data-scroll-target="#statistical-testing">Statistical Testing</a></li>
+  <li><a href="#results-and-implications" id="toc-results-and-implications" class="nav-link" data-scroll-target="#results-and-implications">Results and Implications</a></li>
   </ul>
 </nav>
     </div>
@@ -214,7 +217,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 28, 2024</p>
+      <p class="date">November 8, 2024</p>
     </div>
   </div>
   
@@ -226,14 +229,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Data was sourced from [Real Estate Valuation](<a href="https://archive.ics.uci.edu/dataset/477/real+estate+valuation+data+set" class="uri">https://archive.ics.uci.edu/dataset/477/real+estate+valuation+data+set</a>) from UC Irvine Machine Learning Repository by I-Cheng Yeh</p>
-<p>This dataset shows the historical market of real estate valuation collected from Sindian Dist., New Taipei City, Taiwan. It has many interesting variables to compare–features of homes that may increase or decrease its valuation. In particular, distance from homes to the nearest MRT station interested me, as Taiwan has an extensive public transport system; MRT being one of the most popular.</p>
-<p>As such, it wouldn’t be a far fetch to believe a home’s distance from an MRT station might increase valuation. As such, we might like to test the correlation between these variables to understand how significant MRT distance truly is to Taiwan’s real estate market.</p>
+<p>Data was sourced from <a href="https://archive.ics.uci.edu/dataset/477/real+estate+valuation+data+set">Real Estate Valuation</a> from UC Irvine Machine Learning Repository by I-Cheng Yeh.</p>
+<p>This dataset provides insights into the historical market of real estate valuation collected from Sindian Dist., New Taipei City, Taiwan. It includes many interesting variables for comparison, such as features of homes and their potential association with valuation. In particular, the distance from homes to the nearest MRT station stood out, as Taiwan’s extensive public transportation system, including its popular MRT, plays a significant role in daily life.</p>
+<p>I was interested in examining whether there is a significant association between the distance of homes from the nearest MRT station and house price per unit area. While one might hypothesize that proximity to an MRT station increases valuation, the dataset itself does not provide evidence for causal claims—our analysis focuses solely on the association between these variables.</p>
 <p><strong>Research Question:</strong> Is there a significant association between distance from the nearest MRT station and house price per unit area in Taiwan?</p>
 <p><strong>Null Hypothesis:</strong> There is no association between the distance to the nearest MRT station and house price per unit area.</p>
 <p><strong>Alternative Hypothesis:</strong> There is an association between the distance to the nearest MRT station and house price per unit area.</p>
-<section id="conducting-a-permutation-test" class="level1">
-<h1>Conducting a Permutation Test</h1>
+<section id="visualizing-the-data" class="level1">
+<h1>Visualizing the Data</h1>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
@@ -241,9 +244,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Data</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>real_estate <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"C:/Users/anaja/Downloads/Real estate valuation data set.xlsx"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Let’s start by visualizing. I have started by plotting a graph with the dataset’s original values for MRT distance and their associated price per unit area. Clearly, the slope is pretty negative, perhaps showing that the farther a home is from an MRT station, the less expensive the price per unit area.</p>
-<p>However, how much of this is due to random chance? Could it be that all these MRT distance data points lined up just right to show a negative relationship?</p>
-<p>Lets try to rearrange the MRT distance data randomly to see if we get the same relationship. To do so, we are sampling the existing MRT distances and assigning them randomly to house price per unit area. As we can see, the linear model shows a much more neutral slope.</p>
+<p>To start, I plotted the observed relationship between MRT distance and house price per unit area. The slope of the linear regression model appears negative, suggesting that homes closer to MRT stations tend to have higher prices per unit area. However, this visual pattern could occur by chance. To assess the significance of this relationship, I will conduct a permutation test.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Linear regression of Normal MRT Distance to House Price per Unit Area</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>real_estate <span class="sc">|&gt;</span></span>
@@ -277,7 +278,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>But how much can we really trust our eyes? Lets get some numerical data to back up our claim. Here, we calculate the observed slope’s coefficient to numerically understand how much of a difference we see in slopes.</p>
+<p>Here, we calculate the observed slope’s coefficient to numerically understand how much of a difference we see in slopes.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Getting the observed slope for original data and plot</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>observed_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(house_price_unit <span class="sc">~</span> distance_MRT, <span class="at">data =</span> real_estate)</span>
@@ -302,7 +303,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>[1] 0.0005357146</code></pre>
 </div>
 </div>
-<p>Okay, but that was just ONE instance of reshuffling. Maybe this was all chance! Any good scientist knows we should have multiple trials–like 1000 iterations…</p>
+</section>
+<section id="conducting-a-permutation-test" class="level1">
+<h1>Conducting a Permutation Test</h1>
+<p>A permutation test reshuffles the MRT distances randomly and calculates a new slope each time. By comparing the observed slope from the original data to the distribution of slopes generated from 1000 random permutations, we can evaluate whether the observed relationship is likely to have arisen by chance.</p>
+<p>The observed slope for the original dataset is <strong>-0.0073</strong>, while the average slope from the null distribution of 1000 permutations is approximately <strong>0.00002</strong>, indicating a near-zero association under the null hypothesis. When plotted, the histogram of null slopes clearly shows that the observed slope (red line) lies far outside the null distribution, suggesting that the observed negative slope is statistically significant.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Iterating over multiple random samples of MRT distance</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">47</span>)</span>
@@ -317,7 +322,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>[1] 2.056867e-05</code></pre>
 </div>
 </div>
-<p>So over 1000 permutations, we have an average reshuffled slope of:</p>
+<p>So over 1000 iterations, we have an average reshuffled slope of:</p>
 <pre><code>2.056867e-05</code></pre>
 <p>This is compared to our very negative slope of the original dataset:</p>
 <pre><code> -0.007262052</code></pre>
@@ -344,8 +349,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>Well, that is interesting…it seems our observed slope (red line) is nowhere near the slopes of calculated in the 1000 permutation. Thats to say, there is likely no way that our observed data would happen by chance–even if we were to run this simulation 1000 times.</p>
-<p>Lets also conduct a t-test, just because!</p>
+<p>It seems our observed slope (red line) is not near the slopes calculated in 1000 iterations. That’s to say, there is likely no way that our observed data would happen by chance–even if we were to run this simulation 1000 times.</p>
+</section>
+<section id="statistical-testing" class="level1">
+<h1>Statistical Testing</h1>
+<p>To complement the permutation test, I conducted a linear regression analysis. I reported the p-value associated with the slope of the regression line (not the intercept). The p-value for the slope (4.639825e-56) is essentially <strong>0 (&lt;&lt; 0.05)</strong>, allowing us to confidently reject the null hypothesis. This result aligns with the permutation test, further supporting the conclusion that there is a statistically significant association between house prices per unit area and the distance to the nearest MRT station.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>t_test <span class="ot">&lt;-</span> <span class="fu">lm</span>(house_price_unit <span class="sc">~</span> distance_MRT, <span class="at">data =</span> real_estate) <span class="sc">|&gt;</span></span>
@@ -356,7 +364,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>[1] 1.856440e-231  4.639825e-56</code></pre>
 </div>
 </div>
-<p>Since our p-values (1.856440 x 10^-231 and 4.639825 x 10^-56, essentially, 0) is much smaller than 0.05, <strong>we can confidently reject the null hypothesis</strong>–suggesting there is a statistically significant relationship between Taiwanese house prices per unit area and the home’s distance from the MRT. In all, it seems that proximity to MRT stations plays a significant role in Taiwan’s house valuation. The original data set’s negative relationship is shown to be significantly different from the 1000 iterations of permutations tested with randomized data.</p>
+</section>
+<section id="results-and-implications" class="level1">
+<h1>Results and Implications</h1>
+<p>The analyses show strong evidence of a negative association between MRT proximity and house price per unit area in Taiwan. While this study does not establish causality, the results suggest that proximity to MRT stations may be an important factor associated with real estate valuation. Future studies could extend this analysis to other regions or include additional variables to better understand the dynamics of Taiwan’s real estate market.</p>
 <p>Citation:</p>
 <p>Yeh, I. (2018). Real Estate Valuation [Dataset]. UCI Machine Learning Repository. <a href="https://doi.org/10.24432/C5J30W." class="uri">https://doi.org/10.24432/C5J30W.</a></p>
 

@@ -98,7 +98,14 @@ total_words <- officelines |>
   summarize(total_words = sum(word_count))
 
 
-bad_words <- c("fuck", "bitch", "shit", "mother-fucker", "mother fucker", "dumb-ass", "dumb ass", "dumbass", "god damn", "goddamn", "god dammit", "goddammit", "dick-head", "dickhead", "goddamned", "whore", "slut", "ass", "bastard", "bullshit", "damned", "damn", "dick", "hell", "prick", "piss", "wanker", "retard", "crap", "douche")
+bad_words <- c("fuck", "bitch", "shit", 
+               "mother-fucker", "mother fucker", "dumb-ass",
+               "dumb ass", "dumbass", "god damn",
+               "goddamn", "god dammit", "goddammit",
+               "dick-head", "dickhead", "goddamned", "whore",
+               "slut", "ass", "bastard", "bullshit", "damned",
+               "damn", "dick", "hell", "prick", "piss", "wanker",
+               "retard", "crap", "douche")
 
 bad_words_pattern <- paste0("\\b(", paste(bad_words, collapse = "|"), ")\\b")
 
@@ -126,7 +133,9 @@ wordsdf <- wordsdf |>
 
 slices <- c(wordsdf$good_words_perc, wordsdf$bad_words_perc)
 labels <- c("Family Friendly Words, 99.9%", "Bad Words, ~0.1%")
-pie(slices, labels = labels, main = "Percentage of Bad Words Used in The Office", col = c("blue", "red"))
+pie(slices,
+    labels = labels, 
+    main = "Percentage of Bad Words Used in The Office", col = c("blue", "red"))
 
 
 

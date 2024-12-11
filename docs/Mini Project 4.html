@@ -135,6 +135,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link" href="./about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./Resume.html"> 
+<span class="menu-text">Resume</span></a>
+  </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-data-viz" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Data Viz</span>
@@ -142,11 +146,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="dropdown-menu" aria-labelledby="nav-menu-data-viz">    
         <li>
     <a class="dropdown-item" href="./TT1.html">
- <span class="dropdown-text">TidyTuesday #1</span></a>
+ <span class="dropdown-text">Numbat Plots</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./TT2.html">
- <span class="dropdown-text">TidyTuesday #2</span></a>
+ <span class="dropdown-text">Egg Production Plots</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./Mini Project 2.html">
@@ -154,15 +158,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
         <li>
     <a class="dropdown-item" href="./Mini Project 3.html">
- <span class="dropdown-text">Mini Project 3</span></a>
+ <span class="dropdown-text">Real Estate Simulation</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./Mini Project 4.html">
- <span class="dropdown-text">Mini Project 4</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./Final Presentation.html">
- <span class="dropdown-text">Final Presentation</span></a>
+ <span class="dropdown-text">SQL Data Analysis</span></a>
   </li>  
     </ul>
   </li>
@@ -220,8 +220,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Data was sourced from the [Wideband Acoustic Immittance (WAI) Database](<a href="https://www.science.smith.edu/wai-database/" class="uri">https://www.science.smith.edu/wai-database/</a>) hosted by Smith College</p>
-<p>In this project, I plan to query the WAI Database to create two sub-queries: one that will allow me to reproduce <em>Figure 1</em> of the <em>Voss (2020)</em> publication (see image below) and one to allow me to compare mean absorbency of sound among subjects of different races in one of the studies included in the WAI Database. I start by understanding the tables within the dataset and the variables of each relevant table, which is largely done by the DESCRIBE function. I continue by joining datasets with the information relevant to the figures–utilizing primary keys that connect the datasets, such as Identifier and SubjectNumber.</p>
+<p>This project utilizes the <a href="https://www.science.smith.edu/wai-database/">Wideband Acoustic Immittance (WAI) Database</a> hosted by Smith College to explore data analysis using SQL and R. Specifically, I reproduced <strong>Figure 1</strong> from the Voss (2020) publication and created a visualization comparing mean absorbance of sound among subjects of different races from one study in the database. The dataset was explored and manipulated in SQL, while R was used for visualization.</p>
 <p><strong>Figure 1 Voss (2020)</strong></p>
 <p><img src="Voss 2020.jpg" class="img-fluid"></p>
 <div class="cell">
