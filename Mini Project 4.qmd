@@ -124,7 +124,8 @@ race_data |>
     title = "Mean absorbance by Subject Race in Lewis 2015 Data",
     x = "Frequency (Hz)",
     y = "Mean Absorbance", 
-    color = "Test Subject Race"
+    color = "Test Subject Race",
+    caption = "Recreating Voss (2020) Figure"
   ) + 
   theme_minimal()
 
