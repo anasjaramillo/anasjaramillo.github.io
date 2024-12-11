@@ -1,5 +1,5 @@
 ---
-title: "TidyTuesday #2"
+title: "Egg Production Plots"
 description: |
   US Egg Production Plots
 author: Ana Jaramillo
@@ -22,7 +22,9 @@ library(ggplot2)
 
 # Data
 eggproduction  <- 
-  readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2023/2023-04-11/egg-production.csv')
+  readr::read_csv('https://raw.githubusercontent.com/
+                  rfordatascience/tidytuesday/master/data/
+                  2023/2023-04-11/egg-production.csv')
 
 
 # Filter by year
