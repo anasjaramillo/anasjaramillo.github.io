@@ -1,0 +1,9 @@
+---
+title: "Resume"
+format: html
+execute:
+  warning: false
+  message: false
+---
+
+![](images/resume_image.png){.center width="753"}
